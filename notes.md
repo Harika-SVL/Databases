@@ -187,4 +187,36 @@
     * Software cost per hour
     * BYOL (Bring your own license)
 
-### 
+### RDS
+
+* AWS Relational Database Services offers fully managed databases for relational DBMS
+* RDS supports
+    * mysql
+    * mariadb
+    * postgres
+    * sql server
+    * oracle
+
+#### AWS RDS Details
+
+* Overview
+
+![alt text](shots/9.PNG)
+
+* AWS creates db instance in a subnet (AZ) of any network (vpc)
+* AWS expects us to provide more than one subnet while creating databases, this is referred as db subnet group
+* AWS VPC by default allows all traffic internally i.e. all private communication is allowed
+* If your application and rds is in same vpc all you need to know is names(ip addresses)
+* If your application and rds are in different networks we need some extra configuration at networking level
+    * VPC peering
+    * VPN
+* RDS features
+
+![alt text](shots/10.PNG)
+
+#### Create a RDS mysql instance (free-tier)
+
+* Free tier Details: AWS Free Tier includes 750hrs of Amazon Relational Database Service (RDS) in a db.t2.micro, db.t3.micro, and db.t4g.micro Instances, 20GB of Storage, and 20GB for Backups each month, for one year.
+* Steps
+
+

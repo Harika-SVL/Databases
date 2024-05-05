@@ -80,4 +80,31 @@
 
 * To setup a Microsoft SQL Server on a Windows Server
 * Download SQL Server and install it
-* Once the installation is done, try installing Azure Data Studio to connect to the database.
+* Once the installation is done, try installing Azure Data Studio to connect to the database
+
+### AWS with Managed Database
+
+* Launch the RDS service and select options
+
+![alt text](shots/7.PNG)
+
+* We have selected some options and clicked on create database
+* We got features like shown below already configured
+    * Vertical scaling
+    * Replications
+    * Backups
+
+#### NOTE
+
+* Databases are generally servers which are connect from clients in 3 popular ways
+    * command line
+    * GUI
+    * Code (SDK)
+
+![alt text](shots/8.PNG)
+
+* Azure Data Studio is a UI Based Client which supports connecting to
+    * Microsoft SQL server
+    * mysql
+    * postgres
+

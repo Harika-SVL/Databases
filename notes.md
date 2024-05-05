@@ -108,3 +108,83 @@
     * mysql
     * postgres
 
+### Database Engines Supported by AWS
+
+* Relational Databases
+    * Existing Engines:
+        * Oracle
+        * Microsoft SQL Server
+        * PostgreSQL
+        * mySQL
+        * maria db
+    * AWS Managed Engines
+        * PostgreSQL => RDS (AWS Aurora for Postgres)
+        * mysql => RDS (AWS Aurora for mysql)
+        * Oracle, MSSQL, mysql, maria db, postgres =>RDS
+
+* NOSQL:
+    * Engines:
+        * AWS Dynamo DB
+        * Neptune (Graph Database)
+        * QLDB (Ledger [Block chain] )
+        * Timestream
+    * AWS Managed Engines
+        * Mongo db => Document DB
+        * Cassandra => KeySpaces
+        * Redis => Amazon Memory DB for Redis
+        * Redis,Memcached => Elastic Cache
+
+#### What to expect from managed databases
+
+* Features
+    * automatic backups
+    * Setting replications
+    * Firewalls around databases
+    * Disaster Recovery
+
+#### What not to expect from managed databases
+
+* Older version support
+* shell access into os
+* performance tuning will not be managed, you should still do this
+
+#### Terms
+
+* Service: What aws offers
+    * Ownership: AWS
+* Resource: What we create.
+    * Ownership: you
+* Cloud Services Provider (CSP)
+* Cloud Services Consumer
+
+### Services
+
+* Relational Databases: AWS RDS (Relational Database Service)
+* NoSQL:
+    * Dynamo DB
+    * Document DB
+    * KeySpaces DB
+    * Neptune
+* Cache:
+    * Elastic Cache
+    * Memory DB
+* Block Chain
+    * QLDB
+* IOT
+    * Timeseries DB
+* DataWarehouse:
+    * Redshift
+
+#### Using Database on AWS has 3 wider options
+
+* Use Managed Databases
+* Create your own ec2 instance and manually install/configure database
+* Search for Market place ec2 ami which helps in pre installed databases
+
+#### Licensing
+
+* AWS supports two kinds of Licensing
+    * Software cost per hour
+    * BYOL (Bring your own license)
+
+### 

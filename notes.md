@@ -1,7 +1,7 @@
 ### Databases
 
-* Database is collection of information
-* Database Management Systems are softwares/engines which allow multiple users to parallely work with same data (Read/Write)
+* Database is a collection of information
+* Database Management systems are softwares/engines which allow multiple users to parallely work with same data (Read/Write)
     * Read => Select
     * Write => Create/Update/insert
 * Database types :
@@ -15,7 +15,7 @@
 
 * Relational Database are databases, where we design the data in terms of `Tables with Rows and Columns`. The structure of the Table is called as _**Schema**_
 
-* Each `row` represents a _**record**_
+* Each `row` represents a _**Record**_
 * Tables will have relationships between them
     * one – one
     * one – many

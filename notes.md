@@ -616,3 +616,176 @@ aws s3 ls
 
 
 * Get all subnet groups
+
+
+
+* here we have a output in json format to understand it better
+
+
+
+
+
+#### Exercise: (aws ec2 cli)
+
+* get all ec2 instances in us-west-2
+* get all security groups in us-west-2
+* get all key pairs in us-west-2
+* Remove all the un-necessary security groups, key pairs
+
+#### Activity 1: Lets create a shell script to use aws cli to create rds mysql instance
+
+* Steps:
+    * We need a security group
+        * mysql => 3306
+    * We need a db subnet group default or create one
+    * We need to create a free tier eligble db instance
+        * instance class db.t2.micro
+        * storage size 20GB
+* Creating security group
+* command line
+```
+#!/bin/bash
+
+aws ec2 create-security-group \
+    --description "rds mysql security group" \
+    --group-name "mysqlsg" \
+    --vpc-id "vpc-0263a09e73d00080c"\
+    --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=mysqlsg}]"
+
+# {
+#     "GroupId": "sg-08bcb448f727c9e96",
+#     "Tags": [
+#         {
+#             "Key": "Name",
+#             "Value": "mysqlsg"
+#         }
+#     ]
+# }
+
+### Add 3306 open rule to every one
+aws ec2 authorize-security-group-ingress \
+    --group-id sg-08bcb448f727c9e96 \
+    --protocol tcp \
+    --port 3306 \
+    --cidr 0.0.0.0/0
+# {
+#     "Return": true,
+#     "SecurityGroupRules": [
+#         {
+#             "SecurityGroupRuleId": "sgr-0c0e32b5788018104",
+#             "GroupId": "sg-08bcb448f727c9e96",
+#             "GroupOwnerId": "678879106782",
+#             "IsEgress": false,
+#             "IpProtocol": "tcp",
+#             "FromPort": 3306,
+#             "ToPort": 3306,
+#             "CidrIpv4": "0.0.0.0/0"
+#         }
+#     ]
+# }
+
+# Create a mysql rds instance
+
+aws rds create-db-instance \
+   --db-name 'employees' \
+   --db-instance-identifier 'qtemployeesdbinst' \
+   --allocated-storage 20 \
+   --db-instance-class "db.t2.micro" \
+   --engine "mysql" \
+   --master-username "root" \
+   --master-user-password "rootroot" \
+   --backup-retention-period 0 \
+   --no-multi-az \
+   --no-auto-minor-version-upgrade \
+   --publicly-accessible \
+   --vpc-security-group-ids "sg-08bcb448f727c9e96"
+
+# {
+#     "DBInstance": {
+#         "DBInstanceIdentifier": "qtemployeesdbinst",
+#         "DBInstanceClass": "db.t2.micro",
+#         "Engine": "mysql",
+#         "DBInstanceStatus": "creating",
+#         "MasterUsername": "root",
+#         "DBName": "employees",
+#         "AllocatedStorage": 20,
+#         "PreferredBackupWindow": "21:33-22:03",
+#         "BackupRetentionPeriod": 0,
+#         "DBSecurityGroups": [],
+#         "VpcSecurityGroups": [
+#             {
+#                 "VpcSecurityGroupId": "sg-08bcb448f727c9e96",
+#                 "Status": "active"
+#             }
+#         ],
+#         "DBParameterGroups": [
+#             {
+#                 "DBParameterGroupName": "default.mysql8.0",
+#                 "ParameterApplyStatus": "in-sync"
+```
+
+
+
+* Write a script to create a security group and then lets make it reusable
+* We have made the script partially reusable
+```
+#!/bin/bash
+
+VPC_ID=$(aws ec2 describe-vpcs --filters "Name=is-default,Values=true" --query "Vpcs[0].VpcId" --output text)
+
+echo "Found default vpc with id ${VPC_ID}"
+
+SG_ID=$(aws ec2 create-security-group \
+    --description "rds mysql security group" \
+    --group-name "mysqlsg" \
+    --vpc-id ${VPC_ID}\
+    --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=mysqlsg}]" \
+    --query "GroupId" \
+    --output text)
+
+echo "Created security group with id ${SG_ID}"
+
+
+### Add 3306 open rule to every one
+OUTPUT=$(aws ec2 authorize-security-group-ingress \
+    --group-id ${SG_ID} \
+    --protocol tcp \
+    --port 3306 \
+    --cidr 0.0.0.0/0)
+```
+#### Optimizing CLI script further
+
+* Bash Cheatsheet 
+
+    [ Refer Here : https://devhints.io/bash ]
+
+* For the changes done
+
+    [ Refer here : https://github.com/asquarezone/awsadministration/commit/0fc75a49ba65a3caf02de13a083987a882606a5f#diff-68ce927f7692b5fead9a10f10bfada6761e6007d8392d8bef6ec28accfe9d753 ]
+
+* We have added positional parameters
+* We have created security group if it doesnot exist with the help of
+    * bash
+    * jmespath
+* Try creating rds if it doesnot exists
+* For the changes
+
+    [ Refer here : https://github.com/asquarezone/awsadministration/commit/6719a38729ba810fbd460bd9416258a5e4c279ad ]
+
+### Activities using CLI
+
+#### Create a mysql free tier db with 2 days backe
+
+* Add a read replica in different region.
+* For the shell script with named arguments
+
+    [ Refer here : https://github.com/asquarezone/awsadministration/commit/5dde812b0deae8d450a12598bf549f1b2bc00c62 ]
+
+* For docs
+
+    [ Refer here : https://docs.aws.amazon.com/cli/latest/reference/rds/create-db-instance-read-replica.html ]
+
+* For creating db instance read identifier use interpolation
+```
+DBREADINSTANCE_IDENTIFIER="${DBINSTANCE_IDENTIFIER}-read"
+```

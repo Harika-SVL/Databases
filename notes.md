@@ -220,3 +220,136 @@
 * Steps
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* Concepts
+
+![alt text](shots/11.PNG)
+
+### AWS Interfaces
+
+* We have 3 popular interfaces to work with AWS
+    * Using Browser: AWS Console Refer Here
+    * Using Commands: AWS CLI
+    * Using Code:
+        * Python Boto3
+        * Other AWS SDK
+
+#### Lets Create a single mysql database managed by AWS (RDS)
+
+* Cost Aspects: Refer Here for pricing calculator
+    * Prices vary from region to region
+    * Pricing Choices :
+        * On-demand:
+            * No-Commitments
+        * Reservations (Might not be available for all services):
+            * We give commitment to AWS for 1 or 3 years
+    * Charges:
+        * RDS
+        * storage
+        * backup
+* Right Sizing:
+    * instance classes: Refer Here for db instance type
+        * Memory Optimized: High Memory to CPU Ratio
+        * General Purpose: Balanced CPU to Memory Ratio
+        * Burstable
+    * Storage:
+        * Types:
+            * General purpose
+            * Provisioned
+        * Size:
+            * Fixed
+            * AutoScaled
+    * Backup: Size of Backup directly propotional to costs
+
+### Scenario:
+
+* Your organization has a mysql database which runs on linux vm with for dev environment
+    * 2 vCPUs
+    * 8 GB of RAM
+    * 100 GB Harddisk (20 GB is used and 80 GB is free)
+    * Size: db.t3.large
+* Your organization has a postgres database which requires caching (requires decent memory)
+    * 8 vCPU
+    * 32 GB
+    * 100 GB (used: 80 GB)
+    * Size: `db.r5.xlarge` or `db.r5.2xlarge`
+    * Storage : min Size: 80 Autoscaling till 200 GB
+
+### Single-AZ vs Multi-AZ Deployment in AWS RDS
+
+* Single-AZ Deployment
+    * Overview: RDS will be created in any one AZ in db subnet group
+
+![alt text](shots/12.PNG)
+
+    * No Failover: If the database fails we have rely on our backups to create a new database
+    * Recommended for dev/test environments
+    * To make it work for production, backup strategies have to be decent
+
+* Multi - AZ Deployment
+    * Overview : 
+        * RDS will create a Main and Stand by DB instance in two different AZ
+        * Any changes in main will be synced to Standby (i.e. a DB statement will be complete only when it is synced with Standby)
+    * Automatic Failover between Master adn Standby is available
+    * Master and Standby will be of same size
+    * RDS Endpoint is a DNS Name which points to master and if failover happens it points to standby
+
+![alt text](shots/13.PNG)
+    
+* Recommeded for running Production instances
+* Read Replicas can be created in same region or cross region. Read Replicas help in unloading the main db instance with read traffic
+
+![alt text](shots/14.PNG)
+
+### Creating a Read Replica
+
+* Create a free tier mysql rds instance
+* Ensure Backups are enabled
+* Create read replica
+
+
+
+
+
+
+
+### Multi-Az Deployment
+
+#### Scenario: 
+
+* Let's create a multi az rds mysql db instance and then create a read replica in a different region
+* With multi az, we get HA and auto failover. This is generally used in production
+* The cross region read replica is to offload the read traffic for analytics/Business Intelligence applciations
+* Create a multi AZ DB instance with mysql of size t2.micro or t3.micro, storage => gp2 (20GB), new security group
+* Create a read replica in different region
+
+### Aurora Architecture
+Aurora for mysql gives 5 times improvement and Aurora for postgres gives 3 times imporovement in query performance
+Aurora Architecture: Refer Here for official docs

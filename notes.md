@@ -351,5 +351,268 @@
 * Create a read replica in different region
 
 ### Aurora Architecture
-Aurora for mysql gives 5 times improvement and Aurora for postgres gives 3 times imporovement in query performance
-Aurora Architecture: Refer Here for official docs
+
+* Aurora for mysql gives 5 times improvement and Aurora for postgres gives 3 times imporovement in query performance
+* Aurora Architecture: 
+
+    [ Refer Here : https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.html ] 
+
+![alt text](shots/15.PNG)
+
+* Features of Aurora :
+
+    [ Refer Here : https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.AuroraFeaturesRegionsDBEngines.grids.html ]
+
+### RDS Proxy
+
+* Supported for internal/private connections with in AWS from serverless to database
+* RDS Proxy makes database HA by reusing database connections
+
+![alt text](shots/16.PNG)
+
+* Serverless Databases
+
+    [ Refer Here : https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.Aurora_Fea_Regions_DB-eng.Feature.ServerlessV2.html ]
+
+* RDS DB Cluster
+
+    [ Refer Here : https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html ]
+
+![alt text](shots/17.PNG)
+
+### AWS RDS Backups
+
+* RDS backup:
+    * Takes full backup during maintenance window
+    * incremental backups are taken multiple times
+    * POINT in time restore enables transactional log backup
+
+### NoSQL on AWS
+
+* NOSQL Databases by types
+    * Key Value stores
+    * Wide Column Databases
+    * Document Database
+    * Graph Databases
+* AWS gives managed options
+    * Dynamo DB (Propietry database by AWS)
+    * AWS Document DB (Mongo on AWS)
+    * AWS Key Spaces (Cassandra on AWS)
+    * Nepute (Graph Database)
+
+### Dynamo DB
+
+* Create a table in Dynamo DB
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* Who will use these tables?
+    * Write code: 
+    
+    [ Refer Here : https://docs.aws.amazon.com/code-library/latest/ug/python_3_dynamodb_code_examples.html ]
+
+* Sample code
+```
+import boto3
+
+def create_dynamo_client():
+    dynamo_client  =  boto3.resource(service_name = 'dynamodb',region_name = 'us-east-1',
+              aws_access_key_id = 'AKIA3BS5NFXXXXXXX',
+              aws_secret_access_key = 'qfGTJL28HrqcbhKCM0t//xxx7gTGG4iNrv3/d94Lsp')
+    return dynamo_client
+
+def get_table(dynamo_client):
+    sample_table = dynamo_client.Table('qtdynamodb')
+    return sample_table
+
+def create_ticket(table):
+    table.put_item(Item = {
+        'id': '1',
+        'movie': 'avengers',
+        'theatre': 'pvr',
+        'username': 'qtdevops'
+
+    })
+
+
+def get_ticket(table):
+    item = table.get_item(Key = {'id': '1'})
+
+if __name__ == "__main__":
+    dynamo_client = create_dynamo_client()
+    table = get_table(dynamo_client)
+    create_ticket()
+    get_ticket()
+```
+### Dynamo DB Sizes
+
+* For capacity modes
+
+    [ Refer here : https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ServiceQuotas.html#default-limits-throughput-capacity-modes ]
+
+* Dynamo Db Supports two capacity modes
+    * On-demand
+    * Provisioned
+
+### Dynamo DB
+
+#### Activity: Create a provisioned dynamodb
+
+* Create a dynamo db table
+
+
+
+* Lets create global table by adding other region replicas
+
+
+
+
+
+* The above table supports multi region write database
+* Now add some items in one region and edit in other, sync should happen immedietly
+
+#### Activity: Enable PITR (Point in time Restore)
+
+* Edit PITR
+
+
+
+
+
+
+#### Activity: Backup Configuration
+
+* Configure Backup
+
+
+
+
+#### Activity : Export to S3
+
+
+
+
+#### Dynamo DB Accelarator
+
+* This is quick and very fast in-memory database
+
+#### Reservations in Dynamo DB
+
+    
+* [ Refer Here : https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-reservation-models/amazon-dynamodb-reservations.html ]
+
+#### AWS Document DB (Fully managed mongo db)
+
+* Pricing 
+
+    [ Refer Here : https://aws.amazon.com/documentdb/pricing/ ]
+
+
+
+
+
+
+
+#### Exercise
+
+* Try creating keyspaces 
+
+    [ Refer Here : https://aws.amazon.com/keyspaces/pricing/ ]
+
+### Cache Databases
+
+* To store infrequently changed data and frequently accesed in RAM, Cache Database have became popular. some of the databases are
+    * Redis
+    * Memcached
+* Cache databases also started supporting write and sync to database
+* AWS has launched Elastic Cache which supports both memcached and redis managed by AWS.
+* Recently they have launched AWS Memory database which is Redis managed by AWS
+* Other databases :
+    * Key Spaces (Managed Cassandra)
+    * Quantum DB
+    * Time Series DB
+    * Neptune
+
+#### Note:
+
+* For json and yaml tutorial
+
+    [ Refer here : https://www.youtube.com/watch?v=ggOmHlnhPaM&list=PLuVH8Jaq3mLud3sVDvJ-gJ__0zd15wGDd&index=15 ]
+
+### AWS CLI
+
+* AWS has three interfaces to communicate
+    * Web interface: AWS `Console console.aws.amazone.com`
+    * Command Line Interface: AWS CLI
+    * Code interface: SDK (boto3, java sdk, .net)
+* CLI Interfaces help us in automation
+* AWS Programmatic and console access
+
+![alt text](shots/18.PNG)
+
+* Create an IAM User with Access Keys
+* Installing AWS CLI 
+
+    [ Refer Here : https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html ]
+
+* Configuring access key and secret key `aws configure`
+[ _**Note**_ : Watch the classroom video for more info ]
+
+### Activities
+
+#### Activity – 1: Set up AWS CLI and configure IAM User
+
+* Check if aws cli is working or not
+```
+aws s3 ls
+```
+* Ensure visual studio code is installed
+
+* [ _**Note**_ : For installing all necessary softwares Refer here : https://www.youtube.com/watch?v=9guzVbZPGuw&t=703s ]
+
+* Installing and setting up AWS CLI 
+
+    [ Refer Here : https://www.youtube.com/watch?v=HSScHRcO0CA&list=PLuVH8Jaq3mLszrC7lv68a0VcrDripW-HK&index=5 ]
+
+#### Activity -2: Get RDS db instances and other info
+
+* For aws rds cli
+    [ Refer here : https://docs.aws.amazon.com/cli/latest/reference/rds/ ]
+* list or get => describe, list, get
+* Get all db instances in region ap-south-1
+
+
+
+
+
+
+* AWS CLI output formats 
+
+    [ Refer Here : https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-output-format.html ]
+
+
+
+* Get all subnet groups

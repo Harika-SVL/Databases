@@ -1,9 +1,9 @@
 ### Databases
 
 * Database is a collection of information
-* Database Management systems are softwares/engines which allow multiple users to parallely work with same data (Read/Write)
+* Database Management Systems are softwares/engines which allow multiple users to parallely work with same data ( Read / Write )
     * Read => Select
-    * Write => Create/Update/insert
+    * Write => Create / Update / insert
 * Database types :
     * Relational Databases
     * NOSQL Databases
@@ -13,10 +13,10 @@
 
 ### Relational Databases
 
-* Relational Database are databases, where we design the data in terms of `Tables with Rows and Columns`. The structure of the Table is called as _**Schema**_
+* Relational Database, where we design the data in terms of `Tables with Rows and Columns`. The structure of the table is called as _**Schema**_
 
-* Each `row` represents a _**Record**_
-* Tables will have relationships between them
+* Each `Row` represents a _**Record**_
+* Tables will have `relations` between them
     * one – one
     * one – many
     * many – one
@@ -40,46 +40,45 @@
 * Scaling helps in solving the needs, as the usage grows
     * _**Vertical Scaling**_ : increase hardware or system resources
     * _**Horizontal Scaling**_ : increase number of servers running databases
-* Relational Databases donot have inbuilt support for horizontal scaling
-* Replications need to be setup, for `bidirectional transfers` (DBA skills are required)
+* Relational databases donot have inbuilt support for horizontal scaling
+* Replications need to be setup, for `bidirectional transfers` ( DBA skills are required )
 
 ![alt text](shots/4.PNG)
 
-* Majority of the applications read more data than writing
+* Majority of the applications read data more than writing
 
 ![alt text](shots/5.PNG)
 
-* Administration:
-    * Installation/Patching/Configuring
+* Administration :
+    * Installation / Patching / Configuring
         * OS
         * DBMS
-    * User Managment
-    * Connection Management
+    * User managment
+    * Connection management
     * Backups and recovery
-    * Performance Tuning
+    * Performance tuning
     * Replications
 
 ### NOSQL Databases
 
-* _**NOSQL (Not only SQL)**_ Databases are used to store semi structured information
-* NOSQL Databases are designed to support :
+* _**NOSQL (Not only SQL)**_ databases are used to store semi-structured information
+* They are designed to support :
     * inbuilt horizontal scaling
     * semi-structured
     * don’t impose strict schema’s
-* NOSQL Database Types :
-    * Key-Value Stores
+* Types of NOSQL databases :
+    * Key-Value stores
     * Document-DB
-    * Wide-Column Databases
-    * Graph Databases
+    * Wide-Column 
+    * Graph 
 
 ![alt text](shots/6.PNG)
 
-### Goal: To Set up a database
+### Goal : To set up a database
 
 #### On-premises
 
-* To setup a Microsoft SQL Server on a Windows Server
-* Download SQL Server and install it
+* To setup a Microsoft SQL Server on a Windows Server, download SQL Server and install it
 * Once the installation is done, try installing Azure Data Studio to connect to the database
 
 ### AWS with Managed Database
@@ -94,110 +93,110 @@
     * Replications
     * Backups
 
-#### NOTE
+#### NOTE :
 
-* Databases are generally servers which are connect from clients in 3 popular ways
-    * command line
+* Databases are generally servers which are connect from clients in three popular ways :
+    * Command Line
     * GUI
     * Code (SDK)
 
 ![alt text](shots/8.PNG)
 
-* Azure Data Studio is a UI Based Client which supports connecting to
+* _**Azure Data Studio**_ is a UI based Client which supports connecting to :
     * Microsoft SQL server
     * mysql
     * postgres
 
-### Database Engines Supported by AWS
+### Database Engines supported by AWS
 
 * Relational Databases
-    * Existing Engines:
+    * Existing engines :
         * Oracle
         * Microsoft SQL Server
         * PostgreSQL
         * mySQL
         * maria db
-    * AWS Managed Engines
-        * PostgreSQL => RDS (AWS Aurora for Postgres)
-        * mysql => RDS (AWS Aurora for mysql)
-        * Oracle, MSSQL, mysql, maria db, postgres =>RDS
+    * AWS managed engines :
+        * PostgreSQL => RDS ( AWS Aurora for Postgres )
+        * mysql => RDS ( AWS Aurora for mysql )
+        * Oracle, MS-SQL, mysql, maria DB, postgres =>RDS
 
-* NOSQL:
-    * Engines:
+* _**NOSQL**_ :
+    * Engines :
         * AWS Dynamo DB
-        * Neptune (Graph Database)
-        * QLDB (Ledger [Block chain] )
+        * Neptune ( Graph database )
+        * QLDB ( Ledger [ Block chain ] )
         * Timestream
-    * AWS Managed Engines
-        * Mongo db => Document DB
+    * AWS managed engines :
+        * Mongo DB => Document DB
         * Cassandra => KeySpaces
         * Redis => Amazon Memory DB for Redis
-        * Redis,Memcached => Elastic Cache
+        * Redis, Memcached => Elastic Cache
 
-#### What to expect from managed databases
+#### What to expect from managed databases ?
 
-* Features
+* Features :
     * automatic backups
-    * Setting replications
+    * setting replications
     * Firewalls around databases
-    * Disaster Recovery
+    * Disaster recovery
 
-#### What not to expect from managed databases
+#### What not to expect from managed databases ?
 
 * Older version support
-* shell access into os
-* performance tuning will not be managed, you should still do this
+* Shell access into os
+* Performance tuning will not be managed ( you should still do this )
 
 #### Terms
 
-* Service: What aws offers
-    * Ownership: AWS
-* Resource: What we create.
+* _**Service**_ : What aws offers
+    * Ownership : AWS
+* _**Resource**_ : What we create
     * Ownership: you
-* Cloud Services Provider (CSP)
-* Cloud Services Consumer
+* _**Cloud Services Provider (CSP)**_
+* _**Cloud Services Consumer**_
 
 ### Services
 
-* Relational Databases: AWS RDS (Relational Database Service)
-* NoSQL:
+* _**Relational Databases**_ : AWS RDS (Relational Database Service)
+* _**NoSQL**_ :
     * Dynamo DB
     * Document DB
     * KeySpaces DB
     * Neptune
-* Cache:
+* _**Cache**_ :
     * Elastic Cache
     * Memory DB
-* Block Chain
+* _**Block Chain**_ :
     * QLDB
-* IOT
+* _**IOT**_ :
     * Timeseries DB
-* DataWarehouse:
+* D_**ataWarehouse**_ :
     * Redshift
 
-#### Using Database on AWS has 3 wider options
+#### Using Database on AWS has three wider options
 
 * Use Managed Databases
-* Create your own ec2 instance and manually install/configure database
-* Search for Market place ec2 ami which helps in pre installed databases
+* Create your own ec2 instance and manually install / configure database
+* Search for Market place ec2 AMI which helps in pre-installed databases
 
-#### Licensing
+### Licensing
 
 * AWS supports two kinds of Licensing
     * Software cost per hour
-    * BYOL (Bring your own license)
+    * BYOL ( Bring your own license )
 
 ### RDS
 
-* AWS Relational Database Services offers fully managed databases for relational DBMS
-* RDS supports
+*  _**Relational Database Services**_ offers fully managed databases for relational DBMS
+* RDS supports :
     * mysql
     * mariadb
     * postgres
     * sql server
     * oracle
 
-#### AWS RDS Details
+#### RDS Details
 
 * Overview
 

@@ -202,21 +202,21 @@
 
 ![alt text](shots/9.PNG)
 
-* AWS creates db instance in a subnet (AZ) of any network (vpc)
-* AWS expects us to provide more than one subnet while creating databases, this is referred as db subnet group
+* AWS creates db instance in a subnet ( AZ ), of any network ( VPC )
+* AWS expects us to provide more than one subnet while creating databases, this is referred as `DB Subnet Group`
 * AWS VPC by default allows all traffic internally i.e. all private communication is allowed
-* If your application and rds is in same vpc all you need to know is names(ip addresses)
-* If your application and rds are in different networks we need some extra configuration at networking level
+* If your application and rds is in _**same vpc**_, all you need to know is _**names ( ip addresses )**_
+* If your application and rds are in _**different networks**_, we need some _**extra configuration**_ at networking level :
     * VPC peering
     * VPN
-* RDS features
+#### RDS features
 
 ![alt text](shots/10.PNG)
 
-#### Create a RDS mysql instance (free-tier)
+#### Create a RDS mysql instance ( free-tier )
 
-* Free tier Details: AWS Free Tier includes 750hrs of Amazon Relational Database Service (RDS) in a db.t2.micro, db.t3.micro, and db.t4g.micro Instances, 20GB of Storage, and 20GB for Backups each month, for one year.
-* Steps
+* _**Free tier details**_ : AWS Free Tier includes 750hrs of Amazon `Relational Database Service ( RDS )` in a db.t2.micro, db.t3.micro, and db.t4g.micro Instances, 20GB of Storage and 20GB for Backups each month, for span of one year
+* Steps :
 
 
 
@@ -253,84 +253,95 @@
 
 ### AWS Interfaces
 
-* We have 3 popular interfaces to work with AWS
-    * Using Browser: AWS Console Refer Here
-    * Using Commands: AWS CLI
-    * Using Code:
+* We have three popular interfaces to work with AWS
+    * _**Using Browser**_ : AWS Console 
+    
+    [ Refer Here :  ]
+
+    * _**Using Commands**_ : AWS CLI
+    * _**Using Code**_ :
         * Python Boto3
         * Other AWS SDK
 
-#### Lets Create a single mysql database managed by AWS (RDS)
+#### Let's create a single mysql database managed by aws (RDS)
 
-* Cost Aspects: Refer Here for pricing calculator
+* _**Cost Aspects**_ : For pricing calculator
+
+    [ Refer here :  ]
+
     * Prices vary from region to region
-    * Pricing Choices :
-        * On-demand:
+    * _**Pricing Choices**_ :
+        * _**On-demand**_ :
             * No-Commitments
-        * Reservations (Might not be available for all services):
+        * _**Reservations**_ (might not be available for all services) :
             * We give commitment to AWS for 1 or 3 years
-    * Charges:
+    * _**Charges**_ :
         * RDS
         * storage
         * backup
-* Right Sizing:
-    * instance classes: Refer Here for db instance type
-        * Memory Optimized: High Memory to CPU Ratio
-        * General Purpose: Balanced CPU to Memory Ratio
+* _**Right Sizing**_ :
+    * _**instance classes**_ : For db instance type
+
+        [Refer here :  ]
+
+        * _**Memory Optimized**_ : High Memory to CPU Ratio
+        * _**General Purpose**_ : Balanced CPU to Memory Ratio
         * Burstable
-    * Storage:
-        * Types:
+    * _**Storage**_ :
+        * _**Types**_ :
             * General purpose
             * Provisioned
-        * Size:
+        * _**Size**_ :
             * Fixed
             * AutoScaled
-    * Backup: Size of Backup directly propotional to costs
+    * _**Backup**_ : Size of backup directly propotional to costs
 
-### Scenario:
+### Scenario :
 
-* Your organization has a mysql database which runs on linux vm with for dev environment
+* Your organization has a mysql database which runs on Linux VM with for dev environment :
     * 2 vCPUs
     * 8 GB of RAM
     * 100 GB Harddisk (20 GB is used and 80 GB is free)
     * Size: db.t3.large
-* Your organization has a postgres database which requires caching (requires decent memory)
+* Your organization has a postgres database which requires caching (requires decent memory) :
     * 8 vCPU
     * 32 GB
     * 100 GB (used: 80 GB)
-    * Size: `db.r5.xlarge` or `db.r5.2xlarge`
-    * Storage : min Size: 80 Autoscaling till 200 GB
+    * _**Size**_ : `db.r5.xlarge` or `db.r5.2xlarge`
+    * _**Storage**_ : min, _**Size**_ : 80 Autoscaling till 200 GB
 
-### Single-AZ vs Multi-AZ Deployment in AWS RDS
+### Single-AZ v/s Multi-AZ deployment in aws RDS
 
-* Single-AZ Deployment
-    * Overview: RDS will be created in any one AZ in db subnet group
+#### Single-AZ Deployment
+    
+* _**Overview**_ : RDS will be created in any one AZ in db subnet group
 
 ![alt text](shots/12.PNG)
 
-    * No Failover: If the database fails we have rely on our backups to create a new database
-    * Recommended for dev/test environments
-    * To make it work for production, backup strategies have to be decent
+* _**No Failover**_ : If the database fails we have to rely on our backups to create a new database
+* Recommended for dev/test environments
+* To make it work for production, backup strategies have to be decent
 
-* Multi - AZ Deployment
-    * Overview : 
-        * RDS will create a Main and Stand by DB instance in two different AZ
-        * Any changes in main will be synced to Standby (i.e. a DB statement will be complete only when it is synced with Standby)
-    * Automatic Failover between Master adn Standby is available
-    * Master and Standby will be of same size
-    * RDS Endpoint is a DNS Name which points to master and if failover happens it points to standby
+#### Multi - AZ Deployment
+    
+* _**Overview**_ : 
+    * RDS will create a `Main` and `Standby` DB instance in two different AZ
+    * Any changes in _**Main**_ will be synced to _**Standby**_ ( i.e. a DB statement will be complete only when it is synced with _**Standby**_ )
+    * Automatic Failover between `Master` and `Standby` is available
+    * _**Master**_ and _**Standby**_ will be of same size
+    * RDS Endpoint is a DNS Name which points to _**Master**_ and if failover happens it points to _**Standby**_
 
 ![alt text](shots/13.PNG)
     
-* Recommeded for running Production instances
-* Read Replicas can be created in same region or cross region. Read Replicas help in unloading the main db instance with read traffic
+* Recommeded for running production instances
+* Read replicas can be created in same region or cross region. Read Replicas help in unloading the _**Main**_ db instance with read traffic
 
 ![alt text](shots/14.PNG)
 
 ### Creating a Read Replica
 
-* Create a free tier mysql rds instance
-* Ensure Backups are enabled
+* Create a free-tier mysql RDS instance
+* Ensure backups are enabled
 * Create read replica
 
 
@@ -345,26 +356,26 @@
 
 * Let's create a multi az rds mysql db instance and then create a read replica in a different region
 * With multi az, we get HA and auto failover. This is generally used in production
-* The cross region read replica is to offload the read traffic for analytics/Business Intelligence applciations
+* The cross region read replica is to offload the read traffic for analytics / Business Intelligence applciations
 * Create a multi AZ DB instance with mysql of size t2.micro or t3.micro, storage => gp2 (20GB), new security group
 * Create a read replica in different region
 
 ### Aurora Architecture
 
-* Aurora for mysql gives 5 times improvement and Aurora for postgres gives 3 times imporovement in query performance
-* Aurora Architecture: 
+* Aurora for mysql gives five times improvement and Aurora for postgres gives three times imporovement in query performance
+* _**Aurora Architecture**_ : 
 
     [ Refer Here : https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.html ] 
 
 ![alt text](shots/15.PNG)
 
-* Features of Aurora :
+* _**Features of Aurora**_ :
 
     [ Refer Here : https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.AuroraFeaturesRegionsDBEngines.grids.html ]
 
 ### RDS Proxy
 
-* Supported for internal/private connections with in AWS from serverless to database
+* Supported for internal / private connections with in AWS from serverless to database
 * RDS Proxy makes database HA by reusing database connections
 
 ![alt text](shots/16.PNG)
@@ -381,23 +392,23 @@
 
 ### AWS RDS Backups
 
-* RDS backup:
+* _**RDS backup**_ :
     * Takes full backup during maintenance window
-    * incremental backups are taken multiple times
-    * POINT in time restore enables transactional log backup
+    * Incremental backups are taken multiple times
+    * _**POINT**_ in time restore enables transactional log backup
 
-### NoSQL on AWS
+### NoSQL Databases on AWS
 
-* NOSQL Databases by types
-    * Key Value stores
-    * Wide Column Databases
-    * Document Database
-    * Graph Databases
-* AWS gives managed options
-    * Dynamo DB (Propietry database by AWS)
-    * AWS Document DB (Mongo on AWS)
-    * AWS Key Spaces (Cassandra on AWS)
-    * Nepute (Graph Database)
+* Types :
+    * Key-Value stores
+    * Wide Column 
+    * Document 
+    * Graph 
+* AWS gives managed options :
+    * Dynamo DB ( Propietry database by AWS )
+    * Document DB ( Mongo on AWS )
+    * Key Spaces (  Cassandra on AWS )
+    * Nepute ( Graph Database )
 
 ### Dynamo DB
 
@@ -428,12 +439,12 @@
 
 
 
-* Who will use these tables?
-    * Write code: 
+* Who will use these tables ?
+    * _**Write code**_ : 
     
     [ Refer Here : https://docs.aws.amazon.com/code-library/latest/ug/python_3_dynamodb_code_examples.html ]
 
-* Sample code
+* _**Sample code**_ :
 ```
 import boto3
 
@@ -453,9 +464,7 @@ def create_ticket(table):
         'movie': 'avengers',
         'theatre': 'pvr',
         'username': 'qtdevops'
-
     })
-
 
 def get_ticket(table):
     item = table.get_item(Key = {'id': '1'})
@@ -468,23 +477,21 @@ if __name__ == "__main__":
 ```
 ### Dynamo DB Sizes
 
-* For capacity modes
+* For capacity modes :
 
     [ Refer here : https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ServiceQuotas.html#default-limits-throughput-capacity-modes ]
 
-* Dynamo Db Supports two capacity modes
+* Dynamo Db supports two capacity modes :
     * On-demand
     * Provisioned
 
-### Dynamo DB
-
-#### Activity: Create a provisioned dynamodb
+#### Activity 1 : Create a provisioned dynamodb
 
 * Create a dynamo db table
 
 
 
-* Lets create global table by adding other region replicas
+* Let's create global table by adding other region replicas
 
 
 
@@ -493,7 +500,7 @@ if __name__ == "__main__":
 * The above table supports multi region write database
 * Now add some items in one region and edit in other, sync should happen immedietly
 
-#### Activity: Enable PITR (Point in time Restore)
+#### Activity 2 : Enable PITR ( Point In Time Restore )
 
 * Edit PITR
 
@@ -502,14 +509,14 @@ if __name__ == "__main__":
 
 
 
-#### Activity: Backup Configuration
+#### Activity 3 : Backup Configuration
 
 * Configure Backup
 
 
 
 
-#### Activity : Export to S3
+#### Activity 4 : Export to S3
 
 
 
@@ -523,7 +530,7 @@ if __name__ == "__main__":
     
 * [ Refer Here : https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-reservation-models/amazon-dynamodb-reservations.html ]
 
-#### AWS Document DB (Fully managed mongo db)
+#### Document DB ( Fully managed mongo db )
 
 * Pricing 
 
@@ -543,46 +550,41 @@ if __name__ == "__main__":
 
 ### Cache Databases
 
-* To store infrequently changed data and frequently accesed in RAM, Cache Database have became popular. some of the databases are
+* To store infrequently changed data and frequently accesed in RAM, _**Cache Database**_ have became popular. Some of the databases are :
     * Redis
     * Memcached
-* Cache databases also started supporting write and sync to database
-* AWS has launched Elastic Cache which supports both memcached and redis managed by AWS.
-* Recently they have launched AWS Memory database which is Redis managed by AWS
-* Other databases :
-    * Key Spaces (Managed Cassandra)
+* Cache databases also started supporting `write` and `sync` to database
+* AWS has launched `Elastic Cache` which supports both memcached and redis managed by AWS
+* Recently they have launched `AWS Memory database` which is Redis managed by AWS
+* _**Other databases**_ :
+    * Key Spaces ( Managed Cassandra )
     * Quantum DB
     * Time Series DB
     * Neptune
 
-#### Note:
-
-* For json and yaml tutorial
-
-    [ Refer here : https://www.youtube.com/watch?v=ggOmHlnhPaM&list=PLuVH8Jaq3mLud3sVDvJ-gJ__0zd15wGDd&index=15 ]
-
 ### AWS CLI
 
-* AWS has three interfaces to communicate
-    * Web interface: AWS `Console console.aws.amazone.com`
-    * Command Line Interface: AWS CLI
-    * Code interface: SDK (boto3, java sdk, .net)
+* AWS has three interfaces to communicate :
+    * _**Web interface**_ : AWS `Console console.aws.amazone.com`
+    * _**Command Line interface**_ : AWS CLI
+    * _**Code interface**_ : SDK ( boto3, java sdk, .net )
 * CLI Interfaces help us in automation
-* AWS Programmatic and console access
+* AWS Programmatic and console access :
 
 ![alt text](shots/18.PNG)
 
-* Create an IAM User with Access Keys
+* Create an IAM user with Access Keys
 * Installing AWS CLI 
 
     [ Refer Here : https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html ]
 
 * Configuring access key and secret key `aws configure`
-[ _**Note**_ : Watch the classroom video for more info ]
+
+  [ _**Note**_ : Watch the classroom video for more info ]
 
 ### Activities
 
-#### Activity – 1: Set up AWS CLI and configure IAM User
+#### Activity – 1 : Set up AWS CLI and configure IAM user
 
 * Check if aws cli is working or not
 ```
@@ -590,25 +592,23 @@ aws s3 ls
 ```
 * Ensure visual studio code is installed
 
-* [ _**Note**_ : For installing all necessary softwares Refer here : https://www.youtube.com/watch?v=9guzVbZPGuw&t=703s ]
-
 * Installing and setting up AWS CLI 
 
     [ Refer Here : https://www.youtube.com/watch?v=HSScHRcO0CA&list=PLuVH8Jaq3mLszrC7lv68a0VcrDripW-HK&index=5 ]
 
-#### Activity -2: Get RDS db instances and other info
+#### Activity - 2 : Get RDS db instances and other info
 
 * For aws rds cli
     [ Refer here : https://docs.aws.amazon.com/cli/latest/reference/rds/ ]
 * list or get => describe, list, get
-* Get all db instances in region ap-south-1
+* Get all db instances in the region 
 
 
 
 
 
 
-* AWS CLI output formats 
+* AWS CLI output formats :
 
     [ Refer Here : https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-output-format.html ]
 
@@ -618,30 +618,30 @@ aws s3 ls
 
 
 
-* here we have a output in json format to understand it better
+* Here we have a output in json format to understand it better
 
 
 
 
 
-#### Exercise: (aws ec2 cli)
+#### Exercise : ( aws ec2 cli )
 
-* get all ec2 instances in us-west-2
-* get all security groups in us-west-2
-* get all key pairs in us-west-2
+* get all ec2 instances in the region
+* get all security groups in the region
+* get all key pairs in the region
 * Remove all the un-necessary security groups, key pairs
 
-#### Activity 1: Lets create a shell script to use aws cli to create rds mysql instance
+#### Activity 1: Let's create a shell script to use aws cli to create rds mysql instance
 
-* Steps:
+* Steps :
     * We need a security group
-        * mysql => 3306
+        * mysql => 3306 ( port )
     * We need a db subnet group default or create one
-    * We need to create a free tier eligble db instance
-        * instance class db.t2.micro
-        * storage size 20GB
+    * We need to create a free-tier eligble db instance
+        * instance class  : db.t2.micro
+        * storage size : 20GB
 * Creating security group
-* command line
+* Command Line
 ```
 #!/bin/bash
 
@@ -725,8 +725,8 @@ aws rds create-db-instance \
 
 
 
-* Write a script to create a security group and then lets make it reusable
-* We have made the script partially reusable
+* Write a script to create a security group and then let's make it reusable
+* We have made the script partially reusable :
 ```
 #!/bin/bash
 
@@ -754,7 +754,7 @@ OUTPUT=$(aws ec2 authorize-security-group-ingress \
 ```
 #### Optimizing CLI script further
 
-* Bash Cheatsheet 
+* Bash cheatsheet 
 
     [ Refer Here : https://devhints.io/bash ]
 
@@ -775,7 +775,7 @@ OUTPUT=$(aws ec2 authorize-security-group-ingress \
 
 #### Create a mysql free tier db with 2 days backe
 
-* Add a read replica in different region.
+* Add a read replica in different region
 * For the shell script with named arguments
 
     [ Refer here : https://github.com/asquarezone/awsadministration/commit/5dde812b0deae8d450a12598bf549f1b2bc00c62 ]
@@ -784,7 +784,7 @@ OUTPUT=$(aws ec2 authorize-security-group-ingress \
 
     [ Refer here : https://docs.aws.amazon.com/cli/latest/reference/rds/create-db-instance-read-replica.html ]
 
-* For creating db instance read identifier use interpolation
+* For creating db instance read identifier use interpolation :
 ```
 DBREADINSTANCE_IDENTIFIER="${DBINSTANCE_IDENTIFIER}-read"
 ```

@@ -1,9 +1,9 @@
 ### Databases
 
 * Database is a collection of information
-* Database Management Systems are softwares/engines which allow multiple users to parallely work with same data ( Read / Write )
-    * Read => Select
-    * Write => Create / Update / insert
+* Database Management Systems are softwares / engines which allow multiple users to parallely work with same data ( Read / Write )
+    * Read -> Select
+    * Write -> Create / Update / insert
 * Database types :
     * Relational Databases
     * NOSQL Databases

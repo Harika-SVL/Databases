@@ -390,7 +390,7 @@
 => Enable auto minor version upgrade => Create read replica
 
 ![alt text](shots/39.PNG)
-
+![alt text](shots/40.PNG)
 
 ### Multi-Az Deployment
 

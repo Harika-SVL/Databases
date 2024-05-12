@@ -230,7 +230,7 @@
 
 ![alt text](shots/19.PNG)
 
-=> Engine Version : MySQL 8.0.32 => Templates : Free tier
+=> Engine Version : MySQL 8.0.35 => Templates : Free tier
 
 ![alt text](shots/20.PNG)
 
@@ -241,7 +241,6 @@
 => Master password : qtdevops => Confirm password 
 
 ![alt text](shots/22.PNG)
-
 
 => DB instance class : Burstable classes (includes t classes) => type : db.t3.micro
 
@@ -339,24 +338,50 @@
 #### Multi - AZ Deployment
     
 * _**Overview**_ : 
-    * RDS will create a `Main` and `Standby` DB instance in two different AZ
-    * Any changes in _**Main**_ will be synced to _**Standby**_ ( i.e. a DB statement will be complete only when it is synced with _**Standby**_ )
+    * RDS will create a `Main / Master` and `Standby` DB instance in two different AZ
+    * Any changes in _**Main/Master**_ will be synced to _**Standby**_ ( i.e. a DB statement will be complete only when it is synced with _**Standby**_ )
     * Automatic Failover between `Master` and `Standby` is available
-    * _**Master**_ and _**Standby**_ will be of same size
-    * RDS Endpoint is a DNS Name which points to _**Master**_ and if failover happens it points to _**Standby**_
+    * _**Main / Master**_ and _**Standby**_ will be of same size
+    * RDS Endpoint is a DNS Name which points to _**Main / Master**_ and if failover happens it points to _**Standby**_
 
 ![alt text](shots/12.PNG)
     
 * Recommeded for running production instances
-* Read replicas can be created in same region or cross region. Read Replicas help in unloading the _**Main**_ db instance with read traffic
+* _**Read Replicas**_ can be created in same region or cross region. Read Replicas help in unloading the _**Main / Master**_ db instance with read traffic
 
 ![alt text](shots/13.PNG)
 
 ### Creating a Read Replica
 
-* Create a free-tier mysql RDS instance
+* Create a free-tier mysql RDS instance `qtrdsnopcommerce`
+
+
+
 * Ensure backups are enabled
+
+=> select the database created => Go to Maintenance and backups => Actions => Turn on backups => Apply immediately => Turn on backups
+
+
+
 * Create read replica
+
+=> select the database created => Actions => Create read replica
+
+
+
+=> DB instance identifier : qtrdsreadnopcommerce
+
+
+
+=> AWS Region : select the region of choice
+
+
+
+=> Storage => Storage type : General purpose SSD (gp2) => Allocated storage : 200 GB
+
+
+
+=> Availability : Single AZ => Maintenance => Enable auto minor version upgrade => Create read replica
 
 
 

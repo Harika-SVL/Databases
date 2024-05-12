@@ -355,38 +355,41 @@
 
 * Create a free-tier mysql RDS instance `qtrdsnopcommerce`
 
-
+![alt text](shots/30.PNG)
 
 * Ensure backups are enabled
 
 => select the database created => Go to Maintenance and backups => Actions => Turn on backups => Apply immediately => Turn on backups
 
-
+![alt text](shots/31.PNG)
 
 * Create read replica
 
 => select the database created => Actions => Create read replica
 
-
+![alt text](shots/32.PNG)
 
 => DB instance identifier : qtrdsreadnopcommerce
 
-
+![alt text](shots/33.PNG)
 
 => AWS Region : select the region of choice
 
-
+![alt text](shots/34.PNG)
 
 => Storage => Storage type : General purpose SSD (gp2) => Allocated storage : 200 GB
 
+![alt text](shots/35.PNG)
 
+=> Availability : Single AZ => Maintenance 
 
-=> Availability : Single AZ => Maintenance => Enable auto minor version upgrade => Create read replica
+![alt text](shots/36.PNG)
+![alt text](shots/37.PNG)
+![alt text](shots/38.PNG)
 
+=> Enable auto minor version upgrade => Create read replica
 
-
-
-
+![alt text](shots/39.PNG)
 
 
 ### Multi-Az Deployment

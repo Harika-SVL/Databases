@@ -86,8 +86,9 @@
 
 ![alt text](shots/7.PNG)
 
-* We have selected some options and clicked on create database
-* We got features like shown below already configured
+=> RDS => Databases => Create database => select some required options => Create database
+
+* We got features like shown below already configured :
     * Vertical scaling
     * Replications
     * Backups
@@ -108,29 +109,31 @@
 
 ### Database Engines supported by AWS
 
-* Relational Databases
-    * Existing engines :
-        * Oracle
-        * Microsoft SQL Server
-        * PostgreSQL
-        * mySQL
-        * maria db
-    * AWS managed engines :
-        * PostgreSQL => RDS ( AWS Aurora for Postgres )
-        * mysql => RDS ( AWS Aurora for mysql )
-        * Oracle, MS-SQL, mysql, maria DB, postgres =>RDS
+#### Relational Databases
+    
+* Existing engines :
+    * Oracle
+    * Microsoft SQL Server
+    * PostgreSQL
+    * mySQL
+    * maria db
+* AWS managed engines :
+    * PostgreSQL => RDS ( AWS Aurora for Postgres )
+    * mysql => RDS ( AWS Aurora for mysql )
+    * Oracle, MS-SQL, mysql, maria DB, postgres =>RDS
 
-* _**NOSQL**_ :
-    * Engines :
-        * AWS Dynamo DB
-        * Neptune ( Graph database )
-        * QLDB ( Ledger [ Block chain ] )
-        * Timestream
-    * AWS managed engines :
-        * Mongo DB => Document DB
-        * Cassandra => KeySpaces
-        * Redis => Amazon Memory DB for Redis
-        * Redis, Memcached => Elastic Cache
+#### NOSQL 
+    
+* Engines :
+    * AWS Dynamo DB
+    * Neptune ( Graph database )
+    * QLDB ( Ledger [ Block chain ] )
+    * Timestream
+* AWS managed engines :
+    * Mongo DB => Document DB
+    * Cassandra => KeySpaces
+    * Redis => Amazon Memory DB for Redis
+    * Redis, Memcached => Elastic Cache
 
 #### What to expect from managed databases ?
 
@@ -170,7 +173,7 @@
     * QLDB
 * _**IOT**_ :
     * Timeseries DB
-* D_**ataWarehouse**_ :
+* _**DataWarehouse**_ :
     * Redshift
 
 #### Using Database on AWS has three wider options

@@ -190,7 +190,7 @@
 
 ### RDS
 
-*  _**Relational Database Services**_ offers fully managed databases for relational DBMS
+*  _**Relational Database Services**_ offers fully managed databases for relational DBMS ( DataBase Management System )
 * RDS supports :
     * mysql
     * mariadb
@@ -211,54 +211,66 @@
 * If your application and rds are in _**different networks**_, we need some _**extra configuration**_ at networking level :
     * VPC peering
     * VPN
+
 #### RDS features
 
 ![alt text](shots/10.PNG)
 
 #### Create a RDS mysql instance ( free-tier )
 
-* _**Free tier details**_ : AWS Free Tier includes 750hrs of Amazon `Relational Database Service ( RDS )` in a db.t2.micro, db.t3.micro, and db.t4g.micro Instances, 20GB of Storage and 20GB for Backups each month, for span of one year
-* Steps :
+* _**Free-tier details**_ :  includes 750hrs of Amazon `Relational Database Service ( RDS )` in a db.t2.micro, db.t3.micro, and db.t4g.micro Instances, 20GB of Storage and 20GB for Backups each month, for span of one year
+
+* _**STEPS**_ :
+
+=> RDS => Create database => Standard create 
+
+![alt text](shots/18.PNG)
+
+=>Engine options => Engine type : MySQL
+
+![alt text](shots/19.PNG)
+
+=> Engine Version : MySQL 8.0.32 => Templates : Free tier
+
+![alt text](shots/20.PNG)
+
+=> DB instance identifier : qtdemosrv => Credentials => Master username : qtdevops
+
+![alt text](shots/21.PNG)
+
+=> Master password : qtdevops => Confirm password 
+
+![alt text](shots/22.PNG)
 
 
+=> DB instance class : Burstable classes (includes t classes) => type : db.t3.micro
 
+![alt text](shots/23.PNG)
 
+=> Storage type : General purpose SSD (gp2) => Allocated storage : 20
 
+![alt text](shots/24.PNG)
 
+=> Connectivity => Compute resource : Don't connect to an EC2 compute resource => Network type : IPv4 => Virtual private cloud (VPC) : Default VPC 
 
+![alt text](shots/25.PNG)
 
+=> DB subnet group : default => Public access : No => VPC security group : Choose existing 
 
+![alt text](shots/26.PNG)
 
+=> Existing VPC : default => Create database
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-* Concepts
-
-![alt text](shots/11.PNG)
+![alt text](shots/27.PNG)
+![alt text](shots/28.PNG)
+![alt text](shots/29.PNG)
 
 ### AWS Interfaces
 
 * We have three popular interfaces to work with AWS
     * _**Using Browser**_ : AWS Console 
     
-    [ Refer Here :  ]
+    [ Refer Here : https://us-east-1.console.aws.amazon.com/console/home?region=us-east-1 ]
 
     * _**Using Commands**_ : AWS CLI
     * _**Using Code**_ :
@@ -269,7 +281,7 @@
 
 * _**Cost Aspects**_ : For pricing calculator
 
-    [ Refer here :  ]
+    [ Refer here : https://calculator.aws/#/ ]
 
     * Prices vary from region to region
     * _**Pricing Choices**_ :
@@ -282,9 +294,9 @@
         * storage
         * backup
 * _**Right Sizing**_ :
-    * _**instance classes**_ : For db instance type
+    * _**Instance classes**_ : For db instance type
 
-        [Refer here :  ]
+        [Refer here : https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#Concepts.DBInstanceClass.Types ]
 
         * _**Memory Optimized**_ : High Memory to CPU Ratio
         * _**General Purpose**_ : Balanced CPU to Memory Ratio

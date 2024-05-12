@@ -1,9 +1,9 @@
 ### Databases
 
 * Database is a collection of information
-* Database Management Systems are softwares / engines which allow multiple users to parallely work with same data ( Read / Write )
+* Database Management Systems are softwares / engines which allow multiple users to parallely work with data ( Read / Write )
     * Read -> Select
-    * Write -> Create / Update / insert
+    * Write -> Create / Update / Insert
 * Database types :
     * Relational Databases
     * NOSQL Databases
@@ -14,7 +14,6 @@
 ### Relational Databases
 
 * Relational Database, where we design the data in terms of `Tables with Rows and Columns`. The structure of the table is called as _**Schema**_
-
 * Each `Row` represents a _**Record**_
 * Tables will have `relations` between them
     * one – one
@@ -38,14 +37,14 @@
 ![alt text](shots/3.PNG)
 
 * Scaling helps in solving the needs, as the usage grows
-    * _**Vertical Scaling**_ : increase hardware or system resources
-    * _**Horizontal Scaling**_ : increase number of servers running databases
+    * _**Vertical Scaling**_ : increase hardware or system resources ( increase the size practically )
+    * _**Horizontal Scaling**_ : increase number of servers running databases ( increase the no.of machines to work on )
 * Relational databases donot have inbuilt support for horizontal scaling
-* Replications need to be setup, for `bidirectional transfers` ( DBA skills are required )
+* Replications need to be setup ( with horizontzl scaling ), for `bidirectional transfers` ( DBA skills are required )
 
 ![alt text](shots/4.PNG)
 
-* Majority of the applications read data more than writing
+* Majority of the applications read data ( doesn't change the data ) more than writing ( Changes te data )
 
 ![alt text](shots/5.PNG)
 

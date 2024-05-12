@@ -330,7 +330,7 @@
     
 * _**Overview**_ : RDS will be created in any one AZ in db subnet group
 
-![alt text](shots/12.PNG)
+![alt text](shots/11.PNG)
 
 * _**No Failover**_ : If the database fails we have to rely on our backups to create a new database
 * Recommended for dev/test environments
@@ -345,12 +345,12 @@
     * _**Master**_ and _**Standby**_ will be of same size
     * RDS Endpoint is a DNS Name which points to _**Master**_ and if failover happens it points to _**Standby**_
 
-![alt text](shots/13.PNG)
+![alt text](shots/12.PNG)
     
 * Recommeded for running production instances
 * Read replicas can be created in same region or cross region. Read Replicas help in unloading the _**Main**_ db instance with read traffic
 
-![alt text](shots/14.PNG)
+![alt text](shots/13.PNG)
 
 ### Creating a Read Replica
 
@@ -381,7 +381,7 @@
 
     [ Refer Here : https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.html ] 
 
-![alt text](shots/15.PNG)
+![alt text](shots/14.PNG)
 
 * _**Features of Aurora**_ :
 
@@ -392,7 +392,7 @@
 * Supported for internal / private connections with in AWS from serverless to database
 * RDS Proxy makes database HA by reusing database connections
 
-![alt text](shots/16.PNG)
+![alt text](shots/15.PNG)
 
 * Serverless Databases
 
@@ -402,7 +402,7 @@
 
     [ Refer Here : https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html ]
 
-![alt text](shots/17.PNG)
+![alt text](shots/16.PNG)
 
 ### AWS RDS Backups
 
@@ -585,7 +585,7 @@ if __name__ == "__main__":
 * CLI Interfaces help us in automation
 * AWS Programmatic and console access :
 
-![alt text](shots/18.PNG)
+![alt text](shots/17.PNG)
 
 * Create an IAM user with Access Keys
 * Installing AWS CLI 

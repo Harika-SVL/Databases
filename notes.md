@@ -300,7 +300,7 @@
 
         * _**Memory Optimized**_ : High Memory to CPU Ratio
         * _**General Purpose**_ : Balanced CPU to Memory Ratio
-        * Burstable
+        * _**Burstable**_
     * _**Storage**_ :
         * _**Types**_ :
             * General purpose
@@ -312,7 +312,7 @@
 
 ### Scenario :
 
-* Your organization has a mysql database which runs on Linux VM with for dev environment :
+* Your organization has a mysql database for dev environment which runs on Linux VM with  :
     * 2 vCPUs
     * 8 GB of RAM
     * 100 GB Harddisk (20 GB is used and 80 GB is free)

@@ -573,8 +573,11 @@ if __name__ == "__main__":
 
 * Edit PITR
 
+=> Dynamo DB => Tables => Select Update settings => Edit PITR
 
 
+
+=> Turn on point-in-time recovery => Save changes
 
 
 

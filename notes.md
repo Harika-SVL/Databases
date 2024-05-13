@@ -428,7 +428,7 @@
 ### RDS Proxy
 
 * Supported for internal / private connections with in AWS from serverless to database
-* RDS Proxy makes database HA by reusing database connections
+* RDS Proxy makes database HA ( Highly Available ) by reusing database connections
 
 ![alt text](shots/15.PNG)
 

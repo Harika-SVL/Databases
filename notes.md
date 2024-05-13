@@ -403,9 +403,14 @@
 
 => RDS => Create database => database creation method : Standard create => Engine type : MySQL => Engine version : select the latest => Templates : Free tier => Settings => DB instance identifier : qtrdsreaddemo => Master username : qtdevops => Master password : qtdevops => Confirm password => instance configuration => select Burstable classes => size : db.t3.micro => Storage => type : gp2 => Allocated storage : 20 GB => Unselect storage autoscaling => Public access : yes => vpc security group : select with openall => Backup => enable automated backups => 1 day => Create database 
 
-
+![alt text](shots/41.PNG)
 
 * Create a read replica in different region
+
+=> select the database created => Actions => create read replica => DB instance identifier : qtrdsread => AWS region : select other region => Availability => select Multi-AZ DB instance => Create read replica
+
+![alt text](shots/42.PNG)
+![alt text](shots/43.PNG)
 
 ### Aurora Architecture
 

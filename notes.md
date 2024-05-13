@@ -525,22 +525,51 @@ if __name__ == "__main__":
     * On-demand
     * Provisioned
 
-#### Activity 1 : Create a provisioned dynamodb
+#### Activity : Create a provisioned dynamodb
 
 * Create a dynamo db table
 
+=> Navigate through Dynamo DB => Tables => Create table => Table name : employees => Partition key : id => Create table
 
+![alt text](shots/48.PNG)
 
 * Let's create global table by adding other region replicas
 
+=> select table => click on Global tables => Create replica 
 
+![alt text](shots/49.PNG)
 
+=> choose a region => Create replica
 
+![alt text](shots/50.PNG)
 
 * The above table supports multi region write database
-* Now add some items in one region and edit in other, sync should happen immedietly
+* Now add some items in one region and edit in other, sync should happen immediatly
 
-#### Activity 2 : Enable PITR ( Point In Time Restore )
+=> Dynamo DB => Explore items => Create item 
+
+![alt text](shots/51.PNG)
+
+=> Form view => Attributes => partition key - value : 1001 => Add new attribute => String => name : qt => Create item
+
+![alt text](shots/52.PNG)
+![alt text](shots/53.PNG)
+
+=> Go to the replica created region => select the item => Actions => Edit item
+
+![alt text](shots/54.PNG)
+
+=> name : NewName => Save and close
+
+![alt text](shots/55.PNG)
+![alt text](shots/56.PNG)
+
+=> select the item => Actions => Edit item => Add new attribute => Number => mobile : 9876543210 => Save and close
+
+![alt text](shots/57.PNG)
+![alt text](shots/58.PNG)
+
+#### Activity : Enable PITR ( Point In Time Restore )
 
 * Edit PITR
 

@@ -400,6 +400,11 @@
 * With multi az, we get HA and auto failover. This is generally used in production
 * The cross region read replica is to offload the read traffic for analytics / Business Intelligence applciations
 * Create a multi AZ DB instance with mysql of size t2.micro or t3.micro, storage => gp2 (20GB), new security group
+
+=> RDS => Create database => database creation method : Standard create => Engine type : MySQL => Engine version : select the latest => Templates : Free tier => Settings => DB instance identifier : qtrdsreaddemo => Master username : qtdevops => Master password : qtdevops => Confirm password => instance configuration => select Burstable classes => size : db.t3.micro => Storage => type : gp2 => Allocated storage : 20 GB => Unselect storage autoscaling => Public access : yes => vpc security group : select with openall => Backup => enable automated backups => 1 day => Create database 
+
+
+
 * Create a read replica in different region
 
 ### Aurora Architecture

@@ -460,36 +460,24 @@
     * Dynamo DB ( Propietry database by AWS )
     * Document DB ( Mongo on AWS )
     * Key Spaces (  Cassandra on AWS )
-    * Nepute ( Graph Database )
+    * Neptune ( Graph Database )
 
 ### Dynamo DB
 
 * Create a table in Dynamo DB
 
+=> Dynamo DB => Tables => Create table => Table name : qtdynamodb => Partition key : id 
 
+![alt text](shots/44.PNG)
 
+=> Table settings : Default settings 
 
+![alt text](shots/45.PNG)
 
+=> Create table
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![alt text](shots/46.PNG)
+![alt text](shots/47.PNG)
 
 * Who will use these tables ?
     * _**Write code**_ : 

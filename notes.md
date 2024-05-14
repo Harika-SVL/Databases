@@ -573,25 +573,32 @@ if __name__ == "__main__":
 
 * Edit PITR
 
-=> Dynamo DB => Tables => Select Update settings => Edit PITR
+=> Dynamo DB => Tables => Edit PITR
 
-
+![alt text](shots/59.PNG)
 
 => Turn on point-in-time recovery => Save changes
 
+![alt text](shots/60.PNG)
 
+=> Status on
 
-#### Activity 3 : Backup Configuration
+![alt text](shots/61.PNG)
+
+#### Activity : Backup Configuration
 
 * Configure Backup
 
+=> Dynamo DB=> Backups => Create backup => Ondemand backup => Backup settings => Default settings=> Create backup
 
+![alt text](shots/62.PNG)
+![alt text](shots/63.PNG)
 
+#### Activity : Export to S3
 
-#### Activity 4 : Export to S3
+=> Dynamo DB => Export to s3 
 
-
-
+![alt text](shots/64.PNG)
 
 #### Dynamo DB Accelarator
 
@@ -600,7 +607,9 @@ if __name__ == "__main__":
 #### Reservations in Dynamo DB
 
     
-* [ Refer Here : https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-reservation-models/amazon-dynamodb-reservations.html ]
+* For documentation 
+
+    [ Refer Here : https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-reservation-models/amazon-dynamodb-reservations.html ]
 
 #### Document DB ( Fully managed mongo db )
 

@@ -606,22 +606,21 @@ if __name__ == "__main__":
 
 #### Reservations in Dynamo DB
 
-    
 * For documentation 
 
     [ Refer Here : https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-reservation-models/amazon-dynamodb-reservations.html ]
 
-#### Document DB ( Fully managed mongo db )
+#### Amazon Document DB ( Fully managed mongo db )
 
 * Pricing 
 
     [ Refer Here : https://aws.amazon.com/documentdb/pricing/ ]
 
+=> Amazon DocumentDB => Launch Amazon DocumentDB => Cluster type : Instance Based Cluster => Instance class => Number of instances => Authentication => Username : qtdevops => Password : qtdevops => Confirm password => Create cluster
 
-
-
-
-
+![alt text](shots/65.PNG)
+![alt text](shots/66.PNG)
+![alt text](shots/67.PNG)
 
 #### Exercise
 

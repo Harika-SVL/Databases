@@ -630,7 +630,7 @@ if __name__ == "__main__":
 
 ### Cache Databases
 
-* To store infrequently changed data and frequently accesed in RAM, _**Cache Database**_ have became popular. Some of the databases are :
+* To store infrequently changed and frequently accesed data in RAM, _**Cache Database**_ have became popular. Some of the databases are :
     * Redis
     * Memcached
 * Cache databases also started supporting `write` and `sync` to database

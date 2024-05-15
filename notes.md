@@ -681,35 +681,24 @@ aws s3 ls
 * list or get => describe, list, get
 * Get all db instances in the region 
 
-
-
-
-
+![alt text](shots/69.PNG)
 
 * AWS CLI output formats :
 
     [ Refer Here : https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-output-format.html ]
 
-
+![alt text](shots/70.PNG)
 
 * Get all subnet groups
 
-
+![alt text](shots/71.PNG)
 
 * Here we have a output in json format to understand it better
 
+![alt text](shots/72.PNG)
+![alt text](shots/73.PNG)
 
-
-
-
-#### Exercise : ( aws ec2 cli )
-
-* get all ec2 instances in the region
-* get all security groups in the region
-* get all key pairs in the region
-* Remove all the un-necessary security groups, key pairs
-
-#### Activity 1: Let's create a shell script to use aws cli to create rds mysql instance
+#### Activity : Let's create a shell script to use AWS CLI to create rds mysql instance
 
 * Steps :
     * We need a security group

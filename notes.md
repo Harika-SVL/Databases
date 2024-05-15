@@ -648,7 +648,7 @@ if __name__ == "__main__":
     * _**Web interface**_ : AWS `Console console.aws.amazone.com`
     * _**Command Line interface**_ : AWS CLI
     * _**Code interface**_ : SDK ( boto3, java sdk, .net )
-* CLI Interfaces help us in automation
+* CLI Interfaces help us in `automation`
 * AWS Programmatic and console access :
 
 ![alt text](shots/17.PNG)
@@ -658,25 +658,23 @@ if __name__ == "__main__":
 
     [ Refer Here : https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html ]
 
-* Configuring access key and secret key `aws configure`
+* Configuring Access key and Secret access key at `aws configure`
 
-  [ _**Note**_ : Watch the classroom video for more info ]
-
-### Activities
-
-#### Activity – 1 : Set up AWS CLI and configure IAM user
+#### Activity : Set up AWS CLI and configure IAM user
 
 * Check if aws cli is working or not
 ```
 aws s3 ls
 ```
+![alt text](shots/68.PNG)
+
 * Ensure visual studio code is installed
 
 * Installing and setting up AWS CLI 
 
     [ Refer Here : https://www.youtube.com/watch?v=HSScHRcO0CA&list=PLuVH8Jaq3mLszrC7lv68a0VcrDripW-HK&index=5 ]
 
-#### Activity - 2 : Get RDS db instances and other info
+#### Activity : Get RDS db instances and other info
 
 * For aws rds cli
     [ Refer here : https://docs.aws.amazon.com/cli/latest/reference/rds/ ]

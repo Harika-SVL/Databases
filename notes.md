@@ -634,13 +634,13 @@ if __name__ == "__main__":
     * Redis
     * Memcached
 * Cache databases also started supporting `write` and `sync` to database
-* AWS has launched `Elastic Cache` which supports both memcached and redis managed by AWS
-* Recently they have launched `AWS Memory database` which is Redis managed by AWS
+* AWS has launched `Elastic Cache` which supports both _**memcached**_ and _**redis**_ managed by AWS
+* Recently they have launched `AWS Memory database` which is _**Redis**_ managed by AWS
 * _**Other databases**_ :
     * Key Spaces ( Managed Cassandra )
-    * Quantum DB
-    * Time Series DB
-    * Neptune
+    * Quantum DB ( Leger based configuration )
+    * Time Series DB ( IOT based cconfiguration )
+    * Neptune ( Graph databases )
 
 ### AWS CLI
 

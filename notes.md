@@ -839,6 +839,7 @@ OUTPUT=$(aws ec2 authorize-security-group-ingress \
     --cidr 0.0.0.0/0)
 
 ```
+
 #### Optimizing CLI script further
 
 * Bash cheatsheet 

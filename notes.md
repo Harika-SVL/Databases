@@ -1,7 +1,7 @@
 ### Databases
 
 * Database is a collection of information
-* Database Management Systems are softwares / engines which allow multiple users to parallely work with data ( Read / Write )
+* Database Management Systems are softwares / engines which allow multiple users to parallelly work with data ( Read / Write )
     * Read -> Select
     * Write -> Create / Update / Insert
 * Database types :
@@ -15,7 +15,7 @@
 
 * Relational Database, where we design the data in terms of `Tables with Rows and Columns`. The structure of the table is called as _**Schema**_
 * Each `Row` represents a _**Record**_
-* Tables will have `relations` between them
+* Tables will have `relations` between them :
     * one – one
     * one – many
     * many – one
@@ -23,7 +23,7 @@
 
 ![alt text](shots/2.PNG)
 
-* To work with databases, a formal language called as _**SQL (Structure Query Language )**_ exists
+* To work with databases, a formal language called as _**SQL (Structured Query Language )**_ exists
 * Popular Database Engines :
     * Microsoft SQL Server
     * Oracle
@@ -36,15 +36,15 @@
 
 ![alt text](shots/3.PNG)
 
-* Scaling helps in solving the needs, as the usage grows
-    * _**Vertical Scaling**_ : increase hardware or system resources ( increase the size practically )
-    * _**Horizontal Scaling**_ : increase number of servers running databases ( increase the no.of machines to work on )
+* Scaling helps in solving the needs, as the usage grows :
+    * _**Vertical Scaling**_ : increasing hardware or system resources ( increases the size practically )
+    * _**Horizontal Scaling**_ : increasing number of servers running databases ( increases the no.of machines to work on )
 * Relational databases donot have inbuilt support for horizontal scaling
 * Replications need to be setup ( with horizontzl scaling ), for `bidirectional transfers` ( DBA skills are required )
 
 ![alt text](shots/4.PNG)
 
-* Majority of the applications read data ( doesn't change the data ) more than writing ( Changes te data )
+* Majority of the applications read data ( doesn't change the data ) more than writing ( Changes the data )
 
 ![alt text](shots/5.PNG)
 
@@ -77,8 +77,8 @@
 
 #### On-premises
 
-* To setup a Microsoft SQL Server on a Windows Server, download SQL Server and install it
-* Once the installation is done, try installing Azure Data Studio to connect to the database
+* To setup a `Microsoft SQL Server` on a `Windows Server`, download SQL Server and install it
+* Once the installation is done, try installing `Azure Data Studio` to connect to the database
 
 ### AWS with Managed Database
 
@@ -95,7 +95,7 @@
 
 #### NOTE :
 
-* Databases are generally servers which are connect from clients in three popular ways :
+* Databases are generally servers which are connected from clients in three popular ways :
     * Command Line
     * GUI
     * Code (SDK)
@@ -146,7 +146,7 @@
 #### What not to expect from managed databases ?
 
 * Older version support
-* Shell access into os
+* Shell access into OS
 * Performance tuning will not be managed ( you should still do this )
 
 #### Terms
@@ -160,7 +160,7 @@
 
 ### Services
 
-* _**Relational Databases**_ : AWS RDS (Relational Database Service)
+* _**Relational Databases**_ : AWS RDS ( Relational Database Service )
 * _**NoSQL**_ :
     * Dynamo DB
     * Document DB
@@ -176,7 +176,7 @@
 * _**DataWarehouse**_ :
     * Redshift
 
-#### Using Database on AWS has three wider options
+#### Using Database on AWS has three wider options :
 
 * Use Managed Databases
 * Create your own ec2 instance and manually install / configure database
@@ -184,7 +184,7 @@
 
 ### Licensing
 
-* AWS supports two kinds of Licensing
+* AWS supports two kinds of Licensing :
     * Software cost per hour
     * BYOL ( Bring your own license )
 
@@ -218,7 +218,7 @@
 
 #### Create a RDS mysql instance ( free-tier )
 
-* _**Free-tier details**_ :  includes 750hrs of Amazon `Relational Database Service ( RDS )` in a db.t2.micro, db.t3.micro, and db.t4g.micro Instances, 20GB of Storage and 20GB for Backups each month, for span of one year
+* _**Free-tier details**_ :  includes 750hrs of Amazon `Relational Database Service ( RDS )` in a db.t2.micro, db.t3.micro, and db.t4g.micro Instances, 20GB of Storage and 20GB for backups each month, for span of one year
 
 * _**STEPS**_ :
 
@@ -266,7 +266,7 @@
 
 ### AWS Interfaces
 
-* We have three popular interfaces to work with AWS
+* We have three popular interfaces to work with AWS :
     * _**Using Browser**_ : AWS Console 
     
     [ Refer Here : https://us-east-1.console.aws.amazon.com/console/home?region=us-east-1 ]
@@ -311,15 +311,15 @@
 
 ### Scenario :
 
-* Your organization has a mysql database for dev environment which runs on Linux VM with  :
+* Your organization has a mysql database for `dev environment` which runs on Linux VM with  :
     * 2 vCPUs
     * 8 GB of RAM
     * 100 GB Harddisk (20 GB is used and 80 GB is free)
     * Size: db.t3.large
-* Your organization has a postgres database which requires caching (requires decent memory) :
+* Your organization has a postgres database which requires caching ( requires decent memory ) :
     * 8 vCPU
     * 32 GB
-    * 100 GB (used: 80 GB)
+    * 100 GB ( used: 80 GB )
     * _**Size**_ : `db.r5.xlarge` or `db.r5.2xlarge`
     * _**Storage**_ : min, _**Size**_ : 80 Autoscaling till 200 GB
 
@@ -332,7 +332,7 @@
 ![alt text](shots/11.PNG)
 
 * _**No Failover**_ : If the database fails we have to rely on our backups to create a new database
-* Recommended for dev/test environments
+* Recommended for _**dev/test**_ environments
 * To make it work for production, backup strategies have to be decent
 
 #### Multi - AZ Deployment
@@ -342,7 +342,7 @@
     * Any changes in _**Main/Master**_ will be synced to _**Standby**_ ( i.e. a DB statement will be complete only when it is synced with _**Standby**_ )
     * Automatic Failover between `Master` and `Standby` is available
     * _**Main / Master**_ and _**Standby**_ will be of same size
-    * RDS Endpoint is a DNS Name which points to _**Main / Master**_ and if failover happens it points to _**Standby**_
+    * RDS Endpoint is a DNS name which points to _**Main / Master**_ and if failover happens it points to _**Standby**_
 
 ![alt text](shots/12.PNG)
     
@@ -397,7 +397,7 @@
 #### Scenario: 
 
 * Let's create a multi az rds mysql db instance and then create a read replica in a different region
-* With multi az, we get HA and auto failover. This is generally used in production
+* With multi az, we get HA( Highly Available ) and auto failover. This is generally used in production
 * The cross region read replica is to offload the read traffic for analytics / Business Intelligence applciations
 * Create a multi AZ DB instance with mysql of size t2.micro or t3.micro, storage => gp2 (20GB), new security group
 
@@ -638,7 +638,7 @@ if __name__ == "__main__":
 * Recently they have launched `AWS Memory database` which is _**Redis**_ managed by AWS
 * _**Other databases**_ :
     * Key Spaces ( Managed Cassandra )
-    * Quantum DB ( Leger based configuration )
+    * Quantum DB ( Ledger based configuration )
     * Time Series DB ( IOT based cconfiguration )
     * Neptune ( Graph databases )
 
@@ -679,7 +679,7 @@ aws s3 ls
 * For aws rds cli
     [ Refer here : https://docs.aws.amazon.com/cli/latest/reference/rds/ ]
 * list or get => describe, list, get
-* Get all db instances in the region 
+* Get all db instances in a required region 
 
 ![alt text](shots/69.PNG)
 
@@ -693,7 +693,7 @@ aws s3 ls
 
 ![alt text](shots/71.PNG)
 
-* Here we have a output in json format to understand it better
+* Here we have a output in _**JSON**_ format to understand it better
 
 ![alt text](shots/72.PNG)
 ![alt text](shots/73.PNG)
@@ -704,13 +704,13 @@ aws s3 ls
     * We need a security group for the below port :
         * mysql : 3306 ( port )
     * We need a db subnet group `default` or `create one`
-    * We need to create a free-tier eligble db instance
+    * We need to create a free-tier eligible db instance
         * Instance class  : db.t2.micro
         * Storage Size : 20 GB
 
-* Creating security group ( over command line ending lines with _**`**_ )
+* Creating security group ( over command line ending lines with _**`**_ ( tick ) )
 ```
-#!/bin/bash ( when using bash and end the below lines with `\` )
+#!/bin/bash ( when using bash, end the below lines with `\` )
 
 aws ec2 create-security-group `
     --description "rds mysql security group" `
@@ -732,9 +732,9 @@ aws ec2 create-security-group `
 ```
 ##### Note : Add 3306 open rule to every one
 
-* Setting ingress for security group created ( inbound rules ) ( over command line ending lines with _**`**_ )
+* Setting ingress for security group created ( inbound rules ) ( over command line ending lines with _**`**_ ( tick ) )
 ```
-#!/bin/bash ( when using bash and end the below lines with `\` )
+#!/bin/bash ( when using bash, end the below lines with `\` )
 
 aws ec2 authorize-security-group-ingress `
     --group-id sg-0827e04cf2eeadbf9 `
@@ -760,9 +760,9 @@ aws ec2 authorize-security-group-ingress `
     ]
 }
 ```
-* Create a mysql rds instance ( over command line ending lines with _**`**_ )
+* Create a mysql rds instance ( over command line ending lines with _**`**_ ( tick ) )
 ```
-#!/bin/bash ( when using bash and end the below lines with `\`)
+#!/bin/bash ( when using bash, end the below lines with `\`)
 
 aws rds create-db-instance `
    --db-name 'employees' `
@@ -807,12 +807,12 @@ aws rds create-db-instance `
     }
 }                
 ```
-* Murge above all together in order to create a proper instance
+* Merge above all together in order to create a proper instance
 
 ![alt text](shots/74.PNG)
 
-* Write a script to create a security group and then let's make it reusable ( over command line ending lines with _**`**_ )
-* We have made the script partially reusable with `vpc-id` to _**{VPC_ID}**_ and `group-id` to _**{SG_ID}**_ :
+* Write a script to create a security group and then let's make it reusable ( over command line ending lines with _**`**_ ( tick ) )
+* We have made the script partially reusable with `vpc-id` to _**{VPC_ID}**_ and `group-id` to _**{SG_ID}**_ and add `port : 3306` open rule to every one (  _**cidr : 0.0.0.0/0**_ ) :
 ```
 #!/bin/bash ( when using bash and end the below lines with `\`)
 
@@ -820,17 +820,15 @@ VPC_ID=$(aws ec2 describe-vpcs --filters "Name=is-default,Values=true" --query "
 
 echo "Found default vpc with id ${VPC_ID}"
 
-SG_ID=$(aws ec2 create-security-group \
-    --description "rds mysql security group" \
-    --group-name "mysqlsg" \
-    --vpc-id ${VPC_ID}\
-    --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=mysqlsg}]" \
-    --query "GroupId" \
+SG_ID=$(aws ec2 create-security-group `
+    --description "rds mysql security group" `
+    --group-name "mysqlsg" `
+    --vpc-id ${VPC_ID}`
+    --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=mysqlsg}]" `
+    --query "GroupId" `
     --output text)
 
 echo "Created security group with id ${SG_ID}"
-
-### Add 3306 open rule to every one
 
 OUTPUT=$(aws ec2 authorize-security-group-ingress \
     --group-id ${SG_ID} \

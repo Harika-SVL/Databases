@@ -700,102 +700,121 @@ aws s3 ls
 
 #### Activity : Let's create a shell script to use AWS CLI to create rds mysql instance
 
-* Steps :
-    * We need a security group
-        * mysql => 3306 ( port )
-    * We need a db subnet group default or create one
+* STEPS :
+    * We need a security group for the below port :
+        * mysql : 3306 ( port )
+    * We need a db subnet group `default` or `create one`
     * We need to create a free-tier eligble db instance
-        * instance class  : db.t2.micro
-        * storage size : 20GB
-* Creating security group
-* Command Line
-```
-#!/bin/bash
+        * Instance class  : db.t2.micro
+        * Storage Size : 20 GB
 
-aws ec2 create-security-group \
-    --description "rds mysql security group" \
-    --group-name "mysqlsg" \
-    --vpc-id "vpc-0263a09e73d00080c"\
+* Creating security group ( over command line ending lines with _**`**_ )
+```
+#!/bin/bash ( when using bash and end the below lines with `\` )
+
+aws ec2 create-security-group `
+    --description "rds mysql security group" `
+    --group-name "mysqlsg" `
+    --vpc-id "vpc-09390292253d984a4"`
     --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=mysqlsg}]"
+```
+* output ( expected ) :
+```
+{
+    "GroupId": "sg-0827e04cf2eeadbf9",
+    "Tags": [
+        {
+            "Key": "Name",
+            "Value": "mysqlsg"
+        }
+    ]
+}
+```
+##### Note : Add 3306 open rule to every one
 
-# {
-#     "GroupId": "sg-08bcb448f727c9e96",
-#     "Tags": [
-#         {
-#             "Key": "Name",
-#             "Value": "mysqlsg"
-#         }
-#     ]
-# }
+* Setting ingress for security group created ( inbound rules ) ( over command line ending lines with _**`**_ )
+```
+#!/bin/bash ( when using bash and end the below lines with `\` )
 
-### Add 3306 open rule to every one
-aws ec2 authorize-security-group-ingress \
-    --group-id sg-08bcb448f727c9e96 \
-    --protocol tcp \
-    --port 3306 \
+aws ec2 authorize-security-group-ingress `
+    --group-id sg-0827e04cf2eeadbf9 `
+    --protocol tcp `
+    --port 3306 `
     --cidr 0.0.0.0/0
-# {
-#     "Return": true,
-#     "SecurityGroupRules": [
-#         {
-#             "SecurityGroupRuleId": "sgr-0c0e32b5788018104",
-#             "GroupId": "sg-08bcb448f727c9e96",
-#             "GroupOwnerId": "678879106782",
-#             "IsEgress": false,
-#             "IpProtocol": "tcp",
-#             "FromPort": 3306,
-#             "ToPort": 3306,
-#             "CidrIpv4": "0.0.0.0/0"
-#         }
-#     ]
-# }
-
-# Create a mysql rds instance
-
-aws rds create-db-instance \
-   --db-name 'employees' \
-   --db-instance-identifier 'qtemployeesdbinst' \
-   --allocated-storage 20 \
-   --db-instance-class "db.t2.micro" \
-   --engine "mysql" \
-   --master-username "root" \
-   --master-user-password "rootroot" \
-   --backup-retention-period 0 \
-   --no-multi-az \
-   --no-auto-minor-version-upgrade \
-   --publicly-accessible \
-   --vpc-security-group-ids "sg-08bcb448f727c9e96"
-
-# {
-#     "DBInstance": {
-#         "DBInstanceIdentifier": "qtemployeesdbinst",
-#         "DBInstanceClass": "db.t2.micro",
-#         "Engine": "mysql",
-#         "DBInstanceStatus": "creating",
-#         "MasterUsername": "root",
-#         "DBName": "employees",
-#         "AllocatedStorage": 20,
-#         "PreferredBackupWindow": "21:33-22:03",
-#         "BackupRetentionPeriod": 0,
-#         "DBSecurityGroups": [],
-#         "VpcSecurityGroups": [
-#             {
-#                 "VpcSecurityGroupId": "sg-08bcb448f727c9e96",
-#                 "Status": "active"
-#             }
-#         ],
-#         "DBParameterGroups": [
-#             {
-#                 "DBParameterGroupName": "default.mysql8.0",
-#                 "ParameterApplyStatus": "in-sync"
 ```
-
-
-
-* Write a script to create a security group and then let's make it reusable
-* We have made the script partially reusable :
+* output ( expected ) :
 ```
-#!/bin/bash
+{
+    "Return": true,
+    "SecurityGroupRules": [
+        {
+            "SecurityGroupRuleId": "sg-0827e04cf2eeadbf9",
+            "GroupId": "sg-0827e04cf2eeadbf9",
+            "GroupOwnerId": "891376970974",
+            "IsEgress": false,
+            "IpProtocol": "tcp",
+            "FromPort": 3306,
+            "ToPort": 3306,
+            "CidrIpv4": "0.0.0.0/0"
+        }
+    ]
+}
+```
+* Create a mysql rds instance ( over command line ending lines with _**`**_ )
+```
+#!/bin/bash ( when using bash and end the below lines with `\`)
+
+aws rds create-db-instance `
+   --db-name 'employees' `
+   --db-instance-identifier 'qtemployeesdbinst' `
+   --allocated-storage 20 `
+   --db-instance-class "db.t2.micro" `
+   --engine "mysql" `
+   --master-username "qtdevops" `
+   --master-user-password "qtdevops" `
+   --backup-retention-period 0 `
+   --no-multi-az `
+   --no-auto-minor-version-upgrade `
+   --publicly-accessible `
+   --vpc-security-group-ids "sg-0827e04cf2eeadbf9"
+```
+* output ( expected ) :
+```
+{
+    "DBInstance": {
+        "DBInstanceIdentifier": "qtemployeesdbinst",
+        "DBInstanceClass": "db.t2.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "creating",
+        "MasterUsername": "qtdevops",
+        "DBName": "employees",
+        "AllocatedStorage": 20,
+        "PreferredBackupWindow": "21:33-22:03",
+        "BackupRetentionPeriod": 0,
+        "DBSecurityGroups": [],
+        "VpcSecurityGroups": [
+            {
+                "VpcSecurityGroupId": "sg-0827e04cf2eeadbf9",
+                "Status": "active"
+            }
+        ],
+        "DBParameterGroups": [
+            {
+                "DBParameterGroupName": "default.mysql8.0",
+                "ParameterApplyStatus": "in-sync"
+            }
+        ]
+    }
+}                
+```
+* Murge above all together in order to create a proper instance
+
+![alt text](shots/74.PNG)
+
+* Write a script to create a security group and then let's make it reusable ( over command line ending lines with _**`**_ )
+* We have made the script partially reusable with `vpc-id` to _**{VPC_ID}**_ and `group-id` to _**{SG_ID}**_ :
+```
+#!/bin/bash ( when using bash and end the below lines with `\`)
 
 VPC_ID=$(aws ec2 describe-vpcs --filters "Name=is-default,Values=true" --query "Vpcs[0].VpcId" --output text)
 
@@ -811,13 +830,14 @@ SG_ID=$(aws ec2 create-security-group \
 
 echo "Created security group with id ${SG_ID}"
 
-
 ### Add 3306 open rule to every one
+
 OUTPUT=$(aws ec2 authorize-security-group-ingress \
     --group-id ${SG_ID} \
     --protocol tcp \
     --port 3306 \
     --cidr 0.0.0.0/0)
+
 ```
 #### Optimizing CLI script further
 

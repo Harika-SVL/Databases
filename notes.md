@@ -807,7 +807,7 @@ aws rds create-db-instance `
     }
 }                
 ```
-* Merge above all together in order to create a proper instance
+* Merge above all together in order to create a proper instance `activity-1.sh`
 
 ![alt text](shots/74.PNG)
 
@@ -844,19 +844,331 @@ OUTPUT=$(aws ec2 authorize-security-group-ingress \
 
     [ Refer Here : https://devhints.io/bash ]
 
-* For the changes done
+* For the changes done `create-rds.sh` with new arguments
+```
+#!/bin/bash
 
-    [ Refer here : https://github.com/asquarezone/awsadministration/commit/0fc75a49ba65a3caf02de13a083987a882606a5f#diff-68ce927f7692b5fead9a10f10bfada6761e6007d8392d8bef6ec28accfe9d753 ]
+assign_default_if_empty() {
+    if [[ -z $1 ]]; then
+        echo "$2"
+    else
+        echo "$1"
+    fi
+}
+
+# First argument DB_ENGINE
+DB_ENGINE=$(assign_default_if_empty "$1" 'mysql')
+
+# Second argument is DB_INSTANCE_CLASS
+DB_INSTANCE_CLASS=$(assign_default_if_empty "$2" 'db.t2.micro')
+
+# Third argument is DBINSTANCE_IDENTIFIER
+DBINSTANCE_IDENTIFIER=$(assign_default_if_empty "$3" 'qtemployeesdbinst')
+
+# Fourth argument is DB_NAME
+DB_NAME=$(assign_default_if_empty "$4" 'employees')
+
+# Fifth argument is username
+USER_NAME=$(assign_default_if_empty "$5" 'qtdevops')
+
+# sixth argument is password
+USER_PASSWORD=$(assign_default_if_empty "$6" 'qtdevops')
+
+# 7 = size in gb
+SIZE_IN_GB=$(assign_default_if_empty "$7" 20)
+
+# 8 = Display output
+DISPLAY_OUTPUT=$(assign_default_if_empty "$8" 'NO')
+
+VPC_ID=$(aws ec2 describe-vpcs --filters "Name=is-default,Values=true" --query "Vpcs[0].VpcId" --output text)
+
+DBINSTANCE_IDENTIFIER='qtemployeesdbinst'
+
+# DB_NAME='employees'
+# SIZE_IN_GB=20
+# DB_INSTANCE_CLASS='db.t2.micro'
+# DB_ENGINE='mysql'
+# USER_NAME='qtdevops'
+# USER_PASSWORD='qtdevops'
+# DISPLAY_OUTPUT='NO'
+
+echo "Found default vpc with id ${VPC_ID}"
+
+# Get count of security groups with matching name
+SG_COUNT=$(aws ec2 describe-security-groups --query "length(SecurityGroups[?GroupName=='mysqlsg'])")
+
+if [[ ${SG_COUNT} == "0" ]]; then
+    SG_ID=$(aws ec2 create-security-group \
+        --description "rds mysql security group" \
+        --group-name "mysqlsg" \
+        --vpc-id "${VPC_ID}"\
+        --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=mysqlsg}]" \
+        --query "GroupId" \
+        --output text)
+    echo "Created security group with id ${SG_ID}"
+
+    ### Add 3306 open rule to every one
+
+    OUTPUT=$(aws ec2 authorize-security-group-ingress \
+        --group-id "${SG_ID}" \
+        --protocol tcp \
+        --port 3306 \
+        --cidr 0.0.0.0/0)
+
+    if [[ ${DISPLAY_OUTPUT} != "NO" ]]; then
+        echo "${OUTPUT}"
+
+    fi
+else
+    SG_ID=$(aws ec2 describe-security-groups \
+        --query "SecurityGroups[?GroupName=='mysqlsg'].GroupId" \
+        --output text)
+    echo "Found security group with id ${SG_ID}"
+fi
+
+exit 0
+
+# Create a mysql rds instance
+
+# shellcheck disable=SC2317
+
+OUTPUT=$(aws rds create-db-instance \
+   --db-name "${DB_NAME}" \
+   --db-instance-identifier "${DBINSTANCE_IDENTIFIER}" \
+   --allocated-storage "${SIZE_IN_GB}" \
+   --db-instance-class "${DB_INSTANCE_CLASS}" \
+   --engine "${DB_ENGINE}" \
+   --master-username "${USER_NAME}" \
+   --master-user-password "${USER_PASSWORD}" \
+   --backup-retention-period 0 \
+   --no-multi-az \
+   --no-auto-minor-version-upgrade \
+   --publicly-accessible \
+   --vpc-security-group-ids "${SG_ID}")
+
+# shellcheck disable=SC2317
+
+if [[ ${DISPLAY_OUTPUT} != "NO" ]]; then
+    echo "${OUTPUT}"
+fi
+```
 
 * We have added positional parameters
 * We have created security group if it doesnot exist with the help of
     * bash
     * jmespath
 * Try creating rds if it doesnot exists
-* For the changes
+* For the changes `create-rds-exist.sh`
+```
+#!/bin/bash
+assign_default_if_empty() {
+    if [[ -z $1 ]]; then
+        echo "$2"
+    else
+        echo "$1"
+    fi
+}
 
-    [ Refer here : https://github.com/asquarezone/awsadministration/commit/6719a38729ba810fbd460bd9416258a5e4c279ad ]
+# First argument DB_ENGINE
+DB_ENGINE=$(assign_default_if_empty "$1" 'mysql')
 
+# Second argument is DB_INSTANCE_CLASS
+DB_INSTANCE_CLASS=$(assign_default_if_empty "$2" 'db.t2.micro')
+
+# Third argument is DBINSTANCE_IDENTIFIER
+DBINSTANCE_IDENTIFIER=$(assign_default_if_empty "$3" 'qtemployeesdbinst')
+
+# Fourth argument is DB_NAME
+DB_NAME=$(assign_default_if_empty "$4" 'employees')
+
+# Fifth argument is username
+USER_NAME=$(assign_default_if_empty "$5" 'qtdevops')
+
+# sixth argument is password
+USER_PASSWORD=$(assign_default_if_empty "$6" 'qtdevops')
+
+# 7 = size in gb
+SIZE_IN_GB=$(assign_default_if_empty "$7" 20)
+
+# 8 = Display output
+DISPLAY_OUTPUT=$(assign_default_if_empty "$8" 'NO')
+
+VPC_ID=$(aws ec2 describe-vpcs --filters "Name=is-default,Values=true" --query "Vpcs[0].VpcId" --output text)
+
+DBINSTANCE_IDENTIFIER='qtemployeesdbinst'
+
+# DB_NAME='employees'
+# SIZE_IN_GB=20
+# DB_INSTANCE_CLASS='db.t2.micro'
+# DB_ENGINE='mysql'
+# USER_NAME='qtdevops'
+# USER_PASSWORD='qtdevops'
+# DISPLAY_OUTPUT='NO'
+
+echo "Found default vpc with id ${VPC_ID}"
+
+# Get count of security groups with matching name
+
+SG_COUNT=$(aws ec2 describe-security-groups --query "length(SecurityGroups[?GroupName=='mysqlsg'])")
+
+if [[ $SG_COUNT == "0" ]]; then
+    SG_ID=$(aws ec2 create-security-group \
+        --description "rds mysql security group" \
+        --group-name "mysqlsg" \
+        --vpc-id "${VPC_ID}"\
+        --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=mysqlsg}]" \
+        --query "GroupId" \
+        --output text)
+
+    echo "Created security group with id ${SG_ID}"
+
+    ### Add 3306 open rule to every one
+
+    OUTPUT=$(aws ec2 authorize-security-group-ingress \
+        --group-id "${SG_ID}" \
+        --protocol tcp \
+        --port 3306 \
+        --cidr 0.0.0.0/0)
+    if [[ $DISPLAY_OUTPUT != "NO" ]]; then
+        echo "${OUTPUT}"
+    fi
+else
+    SG_ID=$(aws ec2 describe-security-groups \
+        --query "SecurityGroups[?GroupName=='mysqlsg'].GroupId" \
+        --output text)
+    echo "Found security group with id ${SG_ID}"
+fi
+
+RDS_INSTANCE_COUNT=$(aws rds describe-db-instances --query "length(DBInstances[?DBInstanceIdentifier=='${DBINSTANCE_IDENTIFIER}'])" )
+
+if [[ $RDS_INSTANCE_COUNT == '0' ]]; then
+
+    # Create a mysql rds instance
+
+    OUTPUT=$(aws rds create-db-instance \
+    --db-name "${DB_NAME}" \
+    --db-instance-identifier ${DBINSTANCE_IDENTIFIER} \
+    --allocated-storage "${SIZE_IN_GB}" \
+    --db-instance-class "${DB_INSTANCE_CLASS}" \
+    --engine "${DB_ENGINE}" \
+    --master-username "${USER_NAME}" \
+    --master-user-password "${USER_PASSWORD}" \
+    --backup-retention-period 0 \
+    --no-multi-az \
+    --no-auto-minor-version-upgrade \
+    --publicly-accessible \
+    --vpc-security-group-ids "${SG_ID}")
+
+    if [[ $DISPLAY_OUTPUT != "NO" ]]; then
+        echo "${OUTPUT}"
+    fi
+else
+    echo "Found db instance with name ${DBINSTANCE_IDENTIFIER}"
+fi
+```
+* `rds.json`
+```
+{
+    "DBInstances": [
+        {
+            "DBInstanceIdentifier": "qtemployeesdbinst",
+            "DBInstanceClass": "db.t2.micro",
+            "Engine": "mysql",
+            "DBInstanceStatus": "available",
+            "MasterUsername": "qtdevops",
+            "DBName": "employees",
+            "Endpoint": {
+                "Address": "qtemployeesdbinst.cxucejrlqdsi.ap-south-1.rds.amazonaws.com",
+                "Port": 3306,
+                "HostedZoneId": "Z2VFMSZA74J7XZ"
+            },
+            "AllocatedStorage": 20,
+            "InstanceCreateTime": "2023-05-18T04:25:47.670000+00:00",
+            "PreferredBackupWindow": "17:11-17:41",
+            "BackupRetentionPeriod": 0,
+            "DBSecurityGroups": [],
+            "VpcSecurityGroups": [
+                {
+                    "VpcSecurityGroupId": "sg-0827e04cf2eeadbf9",
+                    "Status": "active"
+                }
+            ],
+            "DBParameterGroups": [
+                {
+                    "DBParameterGroupName": "default.mysql8.0",
+                    "ParameterApplyStatus": "in-sync"
+                }
+            ],
+            "AvailabilityZone": "us-east-1a",
+            "DBSubnetGroup": {
+                "DBSubnetGroupName": "default",
+                "DBSubnetGroupDescription": "default",
+                "VpcId": "vpc-09390292253d984a4",
+                "SubnetGroupStatus": "Complete",
+                "Subnets": [
+                    {
+                        "SubnetIdentifier": "subnet-0a222d2680f2d418e",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-1a"
+                        },
+                        "SubnetOutpost": {},
+                        "SubnetStatus": "Active"
+                    },
+                    {
+                        "SubnetIdentifier": "subnet-01a521bd65d271918",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-1b"
+                        },
+                        "SubnetOutpost": {},
+                        "SubnetStatus": "Active"
+                    },
+                    {
+                        "SubnetIdentifier": "subnet-08859a66dd2f26443",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-1c"
+                        },
+                        "SubnetOutpost": {},
+                        "SubnetStatus": "Active"
+                    }
+                ]
+            },
+            "PreferredMaintenanceWindow": "thu:11:34-thu:12:04",
+            "PendingModifiedValues": {},
+            "MultiAZ": false,
+            "EngineVersion": "8.0.32",
+            "AutoMinorVersionUpgrade": false,
+            "ReadReplicaDBInstanceIdentifiers": [],
+            "LicenseModel": "general-public-license",
+            "OptionGroupMemberships": [
+                {
+                    "OptionGroupName": "default:mysql-8-0",
+                    "Status": "in-sync"
+                }
+            ],
+            "PubliclyAccessible": true,
+            "StorageType": "gp2",
+            "DbInstancePort": 0,
+            "StorageEncrypted": false,
+            "DbiResourceId": "db-5URJF63VXMKUJTKZJZ2ZFWWG5I",
+            "CACertificateIdentifier": "rds-ca-2019",
+            "DomainMemberships": [],
+            "CopyTagsToSnapshot": false,
+            "MonitoringInterval": 0,
+            "DBInstanceArn": "arn:aws:rds:ap-south-1:678879106782:db:qtemployeesdbinst",
+            "IAMDatabaseAuthenticationEnabled": false,
+            "PerformanceInsightsEnabled": false,
+            "DeletionProtection": false,
+            "AssociatedRoles": [],
+            "TagList": [],
+            "CustomerOwnedIpEnabled": false,
+            "ActivityStreamStatus": "stopped",
+            "BackupTarget": "region",
+            "NetworkType": "IPV4",
+            "StorageThroughput": 0
+        }
+    ]
+}
+``` 
 ### Activities using CLI
 
 #### Create a mysql free tier db with 2 days backe
@@ -866,7 +1178,7 @@ OUTPUT=$(aws ec2 authorize-security-group-ingress \
 
     [ Refer here : https://github.com/asquarezone/awsadministration/commit/5dde812b0deae8d450a12598bf549f1b2bc00c62 ]
 
-* For docs
+* For doc's
 
     [ Refer here : https://docs.aws.amazon.com/cli/latest/reference/rds/create-db-instance-read-replica.html ]
 
